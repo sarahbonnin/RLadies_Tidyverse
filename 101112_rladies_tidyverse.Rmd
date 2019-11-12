@@ -1,8 +1,8 @@
 ---
 title: "Tiny introduction to the Tidyverse"
 subtitle: "![](https://www.tidyverse.org/images/hex-tidyverse.png){#id .class width=40% height=40%}"
-date: "`r Sys.Date()`"
-author: "R ladies Barcelona - Sarah Bonnin"
+author: "R ladies Barcelona - 2019-11-14 - Sarah Bonnin"
+#date: "last update: `r Sys.Date()`"
 output:
   xaringan::moon_reader:
     css: ["default", "rladies", "rladies-fonts"]
@@ -13,128 +13,73 @@ output:
       countIncrementalSlides: false
 ---
 
-<p style="width: 550px;"><img src="https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/tidyverse_celestial.png"></p>
-
-.footnote[Source: 
-https://github.com/allisonhorst/stats-illustrations
-]
----
-
 # What is the Tidyverse ?
 
 
 --
 
-* A universe of cool tools
+* A set of packages designed for **data science**:
 
-
----
-
-![](http://www.storybench.org/wp-content/uploads/2017/05/tidyverse-730x294.png)
-
-.footnote[Source: http://www.storybench.org/wp-content/uploads/2017/05/tidyverse-730x294.png]
-
-??? 
-
-test
-
----
-class: center, bottom, inverse
-
-.pull-left[
-- One bullet.
-
-- Another bullet.
-]
-
-.pull-right[
-<p style="width: 200px;"><img src="https://ggplot2.tidyverse.org/logo.png"></p>
-]
+  * Preparing / cleaning
+  * Wrangling
+  * Vizualising
 
 --
 
-.pull-left[
-- One bullet.
-
-- Another bullet.
-]
-
-.pull-right[
-<p style="width: 200px;"><img src="https://ggplot2.tidyverse.org/logo.png"></p>
-]
+* All packages share **common practices**: philosophy, grammar, and data structure.
 
 ---
 
-# Disclaimers
+class: inverse, center, middle
+
+# Disclaimer
 
 --
 
-* New learner
+Old R user...
 
 --
 
-* Old R user
-
----
-
-# The tidyverse packages
-
-As of Tidyverse 1.2.0, the following packages are included in the core tidyverse:
-  * ggplot2
-  * dplyr
-  * tidyr
-  * readr
-  * purrr
-  * tibble
-  * stringr
-  * forcats
-
----
-# Load all tidyverse package
-
-```{r}
-library(tidyverse)
-```
-
----
-
-.left-column[
-<p style="width: 80px;"><img src="https://ggplot2.tidyverse.org/logo.png"></p>
-]
-
-.right-column[
-**ggplot2**: Package for data vizualization of graphics based on Leland Wilkinson's' **G**rammar of **G**raphics: graphics are built one layer at a time.
-]
+But rather new Tidyverse user !
 
 --
 
-.left-column[
-```{r,fig.height=5,echo=F}
-knitr::include_graphics("https://dplyr.tidyverse.org/logo.png")
-```
-]
+* First tutorial on the Tidyverse ...
 
-.right-column[
-**dplyr**: Package for data manipulation and exploratory data analysis.
+.center[
+![](https://media.giphy.com/media/26ufq8k6RuyKjmdTW/giphy.gif)
 ]
 
 ---
 
 # Tidyverse core packages
 
- <table style="width:100%">
-  <tr>
-    <td><p style="width: 50px;"><img src="https://ggplot2.tidyverse.org/logo.png"></p></td>
-    <td>**ggplot2**: Package for data vizualization of graphics based on Leland Wilkinson's' **G**rammar of **G**raphics: graphics are built one layer at a time.</td>
-    </tr>
-  </table>
-  
---
+As of Tidyverse 1.2.0, the following 8 packages are included in the core tidyverse:
+
+
+  * Data Wrangling and Transformation
+        dplyr
+        tidyr 
+        stringr
+        forcats
+  * Data Import and Management
+        tibble
+        readr 
+  * Functional Programming
+        purrr
+  * Data Visualization and Exploration
+        ggplot2
+
+---
+
+# Tidyverse core packages
+
+## Data Wrangling and Transformation
 
  <table style="width:100%">
   <tr>
     <td><p style="width: 50px;"><img src="https://dplyr.tidyverse.org/logo.png"></p></td>
-    <td>**dplyr**: Package for data manipulation and exploratory data analysis.</td>
+    <td><b>dplyr</b>: Package for data manipulation and exploratory data analysis.</td>
     </tr>
   </table>
   
@@ -143,7 +88,16 @@ knitr::include_graphics("https://dplyr.tidyverse.org/logo.png")
 <table style="width:100%">
   <tr>
     <td><p style="width: 50px;"><img src="https://tidyr.tidyverse.org/logo.png"></p></td>
-    <td>**tidyr**: Package that aims at creating tidy data. Tidy data describe a standard way of storing data.</td>
+    <td></b>tidyr</b>: Package that aims at creating tidy data. Tidy data describe a standard way of storing data.</td>
+    </tr>
+  </table>
+
+--
+
+ <table style="width:100%">
+  <tr>
+    <td><p style="width: 50px;"><img src="https://stringr.tidyverse.org/logo.png"></p></td>
+    <td><b>stringr</b>: Package that provides a set of functions for user-friendly string manipulation.</td>
     </tr>
   </table>
   
@@ -151,20 +105,21 @@ knitr::include_graphics("https://dplyr.tidyverse.org/logo.png")
 
  <table style="width:100%">
   <tr>
-    <td><p style="width: 60px;"><img src="https://readr.tidyverse.org/logo.png"></p></td>
-    <td>**readr**: Package for fast and efficient import and export of data.
-  </td>
+    <td><p style="width: 50px;"><img src="https://forcats.tidyverse.org/logo.png"></p></td>
+    <td><b>forcats</b>: Package that helps you deal with factors.</td>
     </tr>
   </table>
   
 ---
 
 # Tidyverse core packages
+## Data Import and Management
 
  <table style="width:100%">
   <tr>
-    <td><p style="width: 60px;"><img src="https://purrr.tidyverse.org/logo.png"></p></td>
-    <td>**purrr**: Package that aims at enhancing R's functional programming toolkit. It provides a set of tools for working with functions and vectors.</td>
+    <td><p style="width: 50px;"><img src="https://readr.tidyverse.org/logo.png"></p></td>
+    <td><b>readr</b>: Package for fast and efficient import and export of data.
+  </td>
     </tr>
   </table>
   
@@ -172,59 +127,42 @@ knitr::include_graphics("https://dplyr.tidyverse.org/logo.png")
 
  <table style="width:100%">
   <tr>
-    <td><p style="width: 60px;"><img src="https://ih1.redbubble.net/image.543363717.2207/flat,750x,075,f-pad,750x1000,f8f8f8.jpg"></p></td>
-    <td>**tibble**: Tibbles are improved - easier to manage -  data frames.</td>
-    </tr>
-  </table>
-  
---
-
- <table style="width:100%">
-  <tr>
-    <td><p style="width: 60px;"><img src="https://stringr.tidyverse.org/logo.png"></p></td>
-    <td>**stringr**: Package that provides a set of functions for user-friendly string manipulation.</td>
-    </tr>
-  </table>
-  
---
-
- <table style="width:100%">
-  <tr>
-    <td><p style="width: 60px;"><img src="https://forcats.tidyverse.org/logo.png"></p></td>
-    <td>**forcats**: Package that helps you deal with factors.</td>
+    <td><p style="width: 50px;"><img src="https://ih1.redbubble.net/image.543363717.2207/flat,750x,075,f-pad,750x1000,f8f8f8.jpg"></p></td>
+    <td><b>tibble</b>: Tibbles are improved - easier to manage -  data frames.</td>
     </tr>
   </table>
   
 ---
 
-.left-column[
-<p style="width: 40px;"><img src="https://ggplot2.tidyverse.org/logo.png"></p>
-<p style="width: 40px;"><img src="https://dplyr.tidyverse.org/logo.png"></p>
-<p style="width: 40px;"><img src="https://tidyr.tidyverse.org/logo.png"></p>
-<p style="width: 40px;"><img src="https://readr.tidyverse.org/logo.png"></p>
-<p style="width: 40px;"><img src="https://purrr.tidyverse.org/logo.png"></p>
-<p style="width: 40px;"><img src="https://ih1.redbubble.net/image.543363717.2207/flat,750x,075,f-pad,750x1000,f8f8f8.jpg"></p>
-<p style="width: 40px;"><img src="https://stringr.tidyverse.org/logo.png"></p>
-<p style="width: 40px;"><img src="https://forcats.tidyverse.org/logo.png"></p>
-]
+# Tidyverse core packages
+## Functional Programming
 
-.right-column[
-**ggplot2**: Package for data vizualization of graphics based on Leland Wilkinson's' **G**rammar of **G**raphics: graphics are built one layer at a time.
+ <table style="width:100%">
+  <tr>
+    <td><p style="width: 50px;"><img src="https://purrr.tidyverse.org/logo.png"></p></td>
+    <td><b>purrr</b>: Package that aims at enhancing R's functional programming toolkit. It provides a set of tools for working with functions and vectors.</td>
+    </tr>
+  </table>
 
-**dplyr**: Package for data manipulation and exploratory data analysis.
+---
 
-**tidyr**: Package that aims at creating tidy data. Tidy data describe a standard way of storing data.
+# Tidyverse core packages
+## Data visualization and exploration
 
-**readr**: Package for fast and efficient import and export of data.
+ <table style="width:100%">
+  <tr>
+    <td><p style="width: 50px;"><img src="https://ggplot2.tidyverse.org/logo.png"></p></td>
+    <td><b>ggplot2</b>: Package for data vizualization of graphics based on Leland Wilkinson's' <b>G</b>rammar of <b>G</b>raphics: graphics are built one layer at a time.</td>
+    </tr>
+  </table>
+  
+---
 
-**purrr**: Package that aims at enhancing R's functional programming toolkit. It provides a set of tools for working with functions and vectors.
+# Load all tidyverse package
 
-**tibble**: Tibbles are improved - easier to manage -  data frames.
-
-**stringr**: Package that provides a set of functions for user-friendly string manipulation.
-
-**forcats**: Package that helps you deal with factors.
-]
+```{r}
+library(tidyverse)
+```
 
 ---
 
@@ -234,9 +172,11 @@ In the teeny tiny workshop, we will focus on:
 * tidyr
 * dplyr
 
+--
+
 And we will also see a bit of:
-* stringr
 * tibble
+* stringr
 * ggplot2
 
 ---
@@ -270,17 +210,11 @@ mytibble
 
 .pull-right[
 Why do we like tibbles:
-- No automatic conversion of characters to factors
+- **Dimensions** of tibble readily available.
+- Information about **data types** as you display the tibble.
+- Only first 10 rows are displayed.
+- **No automatic conversion** of characters to factors
 - No automatic change of column names
-]
-
---
-
-.pull-right[
-As you display the object in the console, you get such information:
-- Dimensions of tibble
-- Information about data types
-- Only first 10 rows are displayed
 ]
 
 ---
@@ -300,7 +234,7 @@ print(mytibble, n=15) #<<
 Print all rows:
 
 ```{r}
-print(mytibble, n=Inf)
+print(mytibble, n=Inf) #<<
 ```
 
 ---
@@ -313,15 +247,15 @@ Tidy data is data where:
 
 --
 
-- Each column describes a variable.
+- Each **column** describes a **variable**.
 
 --
 
-- Each row describes an observation.
+- Each **row** describes an **observation**.
 
 --
 
-- Each value is a cell.
+- Each **value is a **cell**.
 
 --
 
@@ -347,7 +281,7 @@ patients
 
 --
 
-* 2 variables in the third column !
+**2 variables in the third column !**
 
 --
 
@@ -372,7 +306,7 @@ patients
 
 --
 
-* Extra characters in the height and weight columns!
+**Extra characters in the height and weight columns!**
 
 --
 
@@ -399,7 +333,7 @@ patients
 
 --
 
-* Columns **height** and **weight** are treated as characters !
+**Columns **height** and **weight** are treated as characters !**
 
 --
 
@@ -501,23 +435,24 @@ presidential
 
 **mutate** allows to create new columns that are functions of the existing ones.
 
-mutate(a_tibble, 
-    new_column=1:10)
---
-
 * Create a new column with the duration of each term:
 
 --
 
 ```{r}
+# Subtracting column start to colum end
 mutate(presidential, 
-    duration_days=end-start)
+    duration_days=end - start) #<<
 ```
 
 ---
 
 # dplyr
 ## mutate & transmute
+
+> Use **unquoted** column names
+
+--
 
 > Note that columns are added at the end of the data frame.
 
@@ -525,7 +460,10 @@ mutate(presidential,
 
 > Note that **mutate** keeps all columns. 
 
---
+---
+
+# dplyr
+## mutate & transmute
 
 If you want to keep only the newly created columns (drop the remaining ones), you can use **transmute** instead of **mutate**:
 
@@ -533,7 +471,7 @@ If you want to keep only the newly created columns (drop the remaining ones), yo
 
 ```{r, eval=T}
 transmute(presidential, 
-    duration_days=end-start)
+    duration_days=end - start)
 ```
 
 ---
@@ -541,11 +479,11 @@ transmute(presidential,
 # dplyr
 ## mutate & transmute
 
-Re-assign to a new - or the same - data frame/tibble as with the regular base R:
+Re-assign to a new - or the same - data frame/tibble as with the regular base R **assignment operator: <-**:
 
 ```{r, eval=T}
-presidential<- mutate(presidential, 
-                duration_days=end-start)
+presidential <- mutate(presidential, 
+                duration_days=end - start)
 ```
  
 ---
@@ -556,7 +494,8 @@ presidential<- mutate(presidential,
 Select column **name** only with:
 
 ```{r, eval=F, echo =T}
-select(presidential, name)
+select(presidential, 
+       name)
 ```
 
 ```{r, highlight=c(1,3), echo=F, warning=F,message=F}
@@ -632,12 +571,14 @@ Select all columns between **start** and **party** (inclusive)
 
 Select only columns containing characters with **select_if**:
  ```{r, eval=T}
-select_if(presidential, is.character)
+select_if(presidential, 
+    is.character)
 ```
 
 ```{r, eval=F, echo =FALSE}
 #Select all columns that contain a date 
-select_if(presidential, function(x)inherits(x, 'Date'))
+select_if(presidential, 
+          function(x)inherits(x, 'Date'))
 ```
  
 
@@ -663,7 +604,8 @@ knitr::kable(presidential) %>%
 
 Keep rows if party is **Democratic**:
 ```{r, eval=T}
- filter(presidential, party=="Democratic")
+ filter(presidential, 
+        party=="Democratic")
 ```
 
 ---
@@ -673,27 +615,72 @@ Keep rows if party is **Democratic**:
 
 You can filter using several variables/columns:
 ```{r, eval=F}
-filter(presidential, party=="Republican", name=="Bush")
+filter(presidential, 
+       party=="Republican", name=="Bush")
 
 # This implicity uses the "&", i.e. the fact that both conditions have to be TRUE
-filter(presidential, party=="Republican" & name=="Bush")
+filter(presidential, 
+       party=="Republican" & name=="Bush")
 
 # Any logical operators can be used
-filter(presidential, name %in% c("Bush", "Kennedy"))
+filter(presidential, 
+       name %in% c("Bush", "Kennedy"))
 ```
 
 ---
 
 # dplyr
-## summarise
+## summarise & group_by
  
 **summarise** collapses a data frame to a single row (base R: **aggregate**)
  
 --
  
 Get average length of mandates
+
 ```{r, eval=T}
-summarise(presidential, mean(duration_days))
+summarise(presidential, 
+          mean(duration_days))
+```
+
+---
+
+# dplyr
+## summarise & group_by
+ 
+**summarise** collapses a data frame to a single row (base R: **aggregate**)
+ 
+--
+
+Get average length of mandates + total count of entries
+
+```{r, eval=T}
+summarise(presidential,
+          mean(duration_days), n())
+```
+
+---
+
+# dplyr
+## summarise & group_by
+ 
+You can combine **summarise** with **group_by** to get the average length of mandates **per political party**
+
+--
+
+**group_by** defines a grouping based on existing variables.
+
+--
+
+**summarise** then processes the command based on the grouping
+
+--
+
+```{r}
+groups <- group_by(presidential, 
+                   party)
+summarise(groups, 
+          mean(duration_days), n())
 ```
 
 ---
