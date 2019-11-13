@@ -13,7 +13,7 @@ output:
       countIncrementalSlides: false
 ---
 
-# What is the Tidyverse ?
+## What is the Tidyverse ?
 
 
 --
@@ -22,7 +22,7 @@ output:
 
   * Preparing / cleaning
   * Wrangling
-  * Vizualising
+  * Visualizing
 
 --
 
@@ -32,7 +32,7 @@ output:
 
 class: inverse, center, middle
 
-# Disclaimer
+## Disclaimer
 
 --
 
@@ -52,7 +52,7 @@ But rather new Tidyverse user !
 
 ---
 
-# Tidyverse core packages
+## Tidyverse core packages
 
 As of Tidyverse 1.2.0, the following 8 packages are included in the core tidyverse:
 
@@ -72,9 +72,9 @@ As of Tidyverse 1.2.0, the following 8 packages are included in the core tidyver
 
 ---
 
-# Tidyverse core packages
+## Tidyverse core packages
 
-## Data Wrangling and Transformation
+### Data Wrangling and Transformation
 
  <table style="width:100%">
   <tr>
@@ -112,8 +112,8 @@ As of Tidyverse 1.2.0, the following 8 packages are included in the core tidyver
   
 ---
 
-# Tidyverse core packages
-## Data Import and Management
+## Tidyverse core packages
+### Data Import and Management
 
  <table style="width:100%">
   <tr>
@@ -134,8 +134,8 @@ As of Tidyverse 1.2.0, the following 8 packages are included in the core tidyver
   
 ---
 
-# Tidyverse core packages
-## Functional Programming
+## Tidyverse core packages
+### Functional Programming
 
  <table style="width:100%">
   <tr>
@@ -146,8 +146,8 @@ As of Tidyverse 1.2.0, the following 8 packages are included in the core tidyver
 
 ---
 
-# Tidyverse core packages
-## Data visualization and exploration
+## Tidyverse core packages
+### Data visualization and exploration
 
  <table style="width:100%">
   <tr>
@@ -158,7 +158,7 @@ As of Tidyverse 1.2.0, the following 8 packages are included in the core tidyver
   
 ---
 
-# Load all tidyverse package
+## Load all tidyverse package
 
 ```{r}
 library(tidyverse)
@@ -166,7 +166,7 @@ library(tidyverse)
 
 ---
 
-# Outline
+## Outline
 
 In the teeny tiny workshop, we will focus on:
 * tidyr
@@ -181,7 +181,7 @@ And we will also see a bit of:
 
 ---
 
-# tibble
+## tibble
 
 **tibbles** are a modern re-thinking of data frames, that leave behind some old user-unfriendly legacy of R data frames.
 
@@ -198,7 +198,7 @@ mytibble <- tibble(
 
 ---
 
-# tibble
+## tibble
 
 .pull-left[
 ```{r, echo=F}
@@ -219,7 +219,7 @@ Why do we like tibbles:
 
 ---
 
-# tibble
+## tibble
 
 Print the first 15 rows:
 
@@ -229,7 +229,7 @@ print(mytibble, n=15) #<<
 
 ---
 
-# tibble
+## tibble
 
 Print all rows:
 
@@ -239,9 +239,10 @@ print(mytibble, n=Inf) #<<
 
 ---
 
-# tidyr
+## tidyr
+### Tidy data
 
-The goal of tidyr is to help you create **tidy data**. 
+The goal of **{tidyr}** is to help you create **tidy data**. 
 <br>
 Tidy data is data where:
 
@@ -255,7 +256,7 @@ Tidy data is data where:
 
 --
 
-- Each **value is a **cell**.
+- Each **value** is a **cell**.
 
 --
 
@@ -271,23 +272,24 @@ patients <- tibble(
 
 ---
 
-# tidyr
-
-What is wrong here ?
+## tidyr
+### Tidy data
 
 ```{r, echo=F}
 patients
 ```
 
---
-
-**2 variables in the third column !**
+What is wrong here ? -- **2 variables in the third column !**
 
 --
 
 * Let's split the column using the **separate** function:
 
 ```{r}
+# data: tibble/data frame
+# col: column to separate
+# sep: character to use to split the column
+# into: names of the columns that are created after separation
 patients <- separate(data=patients, 
                       col=3, 
                       sep="/", 
@@ -296,7 +298,8 @@ patients <- separate(data=patients,
 
 ---
 
-# tidyr
+## tidyr
+### Tidy data
 
 Anything else wrong with **patients** now ?
 
@@ -323,7 +326,8 @@ patients$weight <- str_remove(patients$weight, "kg")
 
 ---
 
-# tidyr
+## tidyr
+### Tidy data
 
 Is there still a problem ?
 
@@ -352,7 +356,8 @@ patients <- mutate_at(patients, c("height", "weight"), as.numeric)
 
 ---
 
-# tidyr
+## tidyr
+### Tidy data
 
 **patients** is now tidy !
 
@@ -362,7 +367,45 @@ patients
 
 ---
 
-# dplyr
+## tidyr
+### separate & unite
+
+**separate()**: separate a column into 2 (or more)
+<br>
+The **unite()**: does the opposite!
+<br><br>
+Let's practice on the **table5** data set: 
+```{r}
+table5
+```
+
+* **Separate** column **rate** into 2: **cases** and **population**
+* **Unite** columns **century** and **year** into column **year**: **1999** instead of **19** and **99**. *(check ?unite)*.
+
+---
+
+## tidyr
+### separate & unite
+
+```{r}
+# separate column "rate"
+table5a <- separate(table5, 
+         rate, 
+         sep="/", 
+         into=c("cases", "population"))
+
+# unite columns "century" and "year"
+table5b <- unite(table5a,
+                year,
+                c("century", "year"), 
+                sep="")
+
+table5b
+```
+
+---
+
+## dplyr
    
 Introduces a grammar of data manipulation. [Cheat sheet](https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf)
  
@@ -392,7 +435,7 @@ We will introduce the **5 intuitively-named key functions** from **{dplyr}**:
  
 ---
 
-# dplyr
+## dplyr
  
 All 5 functions work in a similar and consistent way:
 
@@ -408,18 +451,18 @@ All 5 functions work in a similar and consistent way:
 
 * The result is a new data frame.
  
- > *Note that dplyr never modifies the input: you need to* ***redirect the output*** *and save in a new - or the same - object.*
+ > *Note that {dplyr} never modifies the input: you need to* ***redirect the output*** *and save in a new - or the same - object.*
 
 ---
 
-# dplyr
+## dplyr
 
 Let's try!
  
 We will use the **presidential** data set: it contains data of the terms of **presidents of the USA**, from Eisenhower to Obama:
 * name
-* starting date of term
-* ending date of term
+* starting date of mandate
+* ending date of mandate
 * political party
  
 --
@@ -430,10 +473,12 @@ presidential
 
 ---
 
-# dplyr
-## mutate & transmute
+## dplyr
+### mutate & transmute
 
 **mutate** allows to create new columns that are functions of the existing ones.
+
+--
 
 * Create a new column with the duration of each term:
 
@@ -447,8 +492,8 @@ mutate(presidential,
 
 ---
 
-# dplyr
-## mutate & transmute
+## dplyr
+### mutate & transmute
 
 > Use **unquoted** column names
 
@@ -462,8 +507,8 @@ mutate(presidential,
 
 ---
 
-# dplyr
-## mutate & transmute
+## dplyr
+### mutate & transmute
 
 If you want to keep only the newly created columns (drop the remaining ones), you can use **transmute** instead of **mutate**:
 
@@ -471,15 +516,15 @@ If you want to keep only the newly created columns (drop the remaining ones), yo
 
 ```{r, eval=T}
 transmute(presidential, 
-    duration_days=end - start)
+    duration_days=end - start) #<<
 ```
 
 ---
 
-# dplyr
-## mutate & transmute
+## dplyr
+### mutate & transmute
 
-Re-assign to a new - or the same - data frame/tibble as with the regular base R **assignment operator: <-**:
+Re-assign to a new - or the same - data frame/tibble as with the regular base R **assignment operator: <-**
 
 ```{r, eval=T}
 presidential <- mutate(presidential, 
@@ -488,8 +533,8 @@ presidential <- mutate(presidential,
  
 ---
 
-# dplyr
-## select
+## dplyr
+### select
 
 Select column **name** only with:
 
@@ -507,8 +552,8 @@ knitr::kable(presidential) %>%
 
 ---
 
-# dplyr
-## select
+## dplyr
+### select
 
 ```{r, eval=T}
 select(presidential, name)
@@ -516,8 +561,8 @@ select(presidential, name)
  
 ---
 
-# dplyr
-## select
+## dplyr
+### select
 
 Select columns **party** and **name** (in that order):
 ```{r, eval=T}
@@ -526,8 +571,8 @@ select(presidential, party, name)
 
 ---
 
-# dplyr
-## select
+## dplyr
+### select
 
 Rename a column as you select it:
 ```{r, eval=T}
@@ -536,8 +581,8 @@ select(presidential, party, President=name)
 
 ---
 
-# dplyr
-## rename
+## dplyr
+### rename
 
 Rename a column without prior selection with **rename**
 ```{r, eval=T}
@@ -546,8 +591,8 @@ rename(presidential, President=name)
 
 ---
 
-# dplyr
-## select
+## dplyr
+### select
 
 Select all columns **except** party:
 ```{r, eval=T}
@@ -556,8 +601,8 @@ select(presidential, -party)
 
 ---
 
-# dplyr
-## select
+## dplyr
+### select
 
 Select all columns between **start** and **party** (inclusive)
 ```{r, eval=T}
@@ -566,8 +611,8 @@ Select all columns between **start** and **party** (inclusive)
 
 ---
 
-# dplyr
-## select_if
+## dplyr
+### select_if
 
 Select only columns containing characters with **select_if**:
  ```{r, eval=T}
@@ -584,8 +629,8 @@ select_if(presidential,
 
 ---
 
-# dplyr
-## filter
+## dplyr
+### filter
 
 **filter** is used to filter rows in a data frame/tibble.
 
@@ -599,8 +644,8 @@ knitr::kable(presidential) %>%
 
 ---
 
-# dplyr
-## filter
+## dplyr
+### filter
 
 Keep rows if party is **Democratic**:
 ```{r, eval=T}
@@ -610,8 +655,8 @@ Keep rows if party is **Democratic**:
 
 ---
 
-# dplyr
-## filter
+## dplyr
+### filter
 
 You can filter using several variables/columns:
 ```{r, eval=F}
@@ -629,8 +674,8 @@ filter(presidential,
 
 ---
 
-# dplyr
-## summarise & group_by
+## dplyr
+### summarise & group_by
  
 **summarise** collapses a data frame to a single row (base R: **aggregate**)
  
@@ -645,12 +690,10 @@ summarise(presidential,
 
 ---
 
-# dplyr
-## summarise & group_by
+## dplyr
+### summarise & group_by
  
 **summarise** collapses a data frame to a single row (base R: **aggregate**)
- 
---
 
 Get average length of mandates + total count of entries
 
@@ -661,18 +704,18 @@ summarise(presidential,
 
 ---
 
-# dplyr
-## summarise & group_by
+## dplyr
+### summarise & group_by
  
-You can combine **summarise** with **group_by** to get the average length of mandates **per political party**
+You can combine **summarise()** with **group_by()** to get the average length of mandates **per political party**
 
 --
 
-**group_by** defines a grouping based on existing variables.
+**group_by()** defines a grouping based on existing variables.
 
 --
 
-**summarise** then processes the command based on the grouping
+**summarise()** then processes the command based on the grouping
 
 --
 
@@ -685,8 +728,8 @@ summarise(groups,
 
 ---
 
-# dplyr
-## arrange
+## dplyr
+### arrange
 
 Order rows by increasing mandate duration with **arrange**
 ```{r, eval=T}
@@ -696,8 +739,8 @@ arrange(presidential, duration_days)
 
 ---
 
-# dplyr
-## arrange
+## dplyr
+### arrange
 
 You can use several columns for the sorting
 ```{r, eval=T}
@@ -706,8 +749,8 @@ arrange(presidential, duration_days, name)
 
 ---
 
-# magritrrr
-## %>% : forward-pipe operator
+## magritrrr
+### %>% : forward-pipe operator
 
 The **{magritrrr}** package introduced the **forward-pipe operator**
 
@@ -719,13 +762,15 @@ Allows to process one command after another.
 
 ---
 
-# magritrrr
-## %>% : forward-pipe operator
+## magritrrr
+### %>% : forward-pipe operator
 
 Basic piping:
-
+--
 * **mytibble %>% function1** is equivalent to **function1(x)**
+--
 * **mytibble %>% function1(y)** is equivalent to **function1(x, y)**
+--
 * **mytibble %>% function1 %>% function2** is equivalent to **function2(function1(x))**
 
 --
@@ -739,8 +784,8 @@ mutate(presidential, duration_days=end-start) %>%
 
 ---
 
-# magritrrr
-## %>% : forward-pipe operator
+## magritrrr
+### %>% : forward-pipe operator
 
 Example:
 
@@ -752,9 +797,27 @@ mutate(presidential, duration_days=end-start) %>%
 
 ---
 
-# ggplot2
+## magritrrr
+### %>% : forward-pipe operator
+
+Example:
+
+```{r}
+mutate(presidential, duration_days=end-start) %>%
+    group_by(party) %>%
+    summarise(mean(duration_days))
+```
+
+---
+
+## ggplot2
+### Visualization
 
 ```{r, fig.height=5, eval=F, echo=F}
+mutate(table1,
+       percent_cases= (cases / population)*100) %>%
+  ggplot(aes(x=percent_cases, col=country, fill=country)) + geom_bar()
+
 ggplot(data=chickwts, aes(x=feed, y=weight)) + 
   geom_boxplot() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
@@ -762,6 +825,9 @@ ggplot(data=chickwts, aes(x=feed, y=weight)) +
 ```
 
 ---
+
+
+
 
 
 

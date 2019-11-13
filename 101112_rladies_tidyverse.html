@@ -36,7 +36,7 @@ class: center, middle, inverse, title-slide
 ---
 
 
-# What is the Tidyverse ?
+## What is the Tidyverse ?
 
 
 --
@@ -55,7 +55,7 @@ class: center, middle, inverse, title-slide
 
 class: inverse, center, middle
 
-# Disclaimer
+## Disclaimer
 
 --
 
@@ -75,7 +75,7 @@ But rather new Tidyverse user !
 
 ---
 
-# Tidyverse core packages
+## Tidyverse core packages
 
 As of Tidyverse 1.2.0, the following 8 packages are included in the core tidyverse:
 
@@ -95,9 +95,9 @@ As of Tidyverse 1.2.0, the following 8 packages are included in the core tidyver
 
 ---
 
-# Tidyverse core packages
+## Tidyverse core packages
 
-## Data Wrangling and Transformation
+### Data Wrangling and Transformation
 
  &lt;table style="width:100%"&gt;
   &lt;tr&gt;
@@ -135,8 +135,8 @@ As of Tidyverse 1.2.0, the following 8 packages are included in the core tidyver
   
 ---
 
-# Tidyverse core packages
-## Data Import and Management
+## Tidyverse core packages
+### Data Import and Management
 
  &lt;table style="width:100%"&gt;
   &lt;tr&gt;
@@ -157,8 +157,8 @@ As of Tidyverse 1.2.0, the following 8 packages are included in the core tidyver
   
 ---
 
-# Tidyverse core packages
-## Functional Programming
+## Tidyverse core packages
+### Functional Programming
 
  &lt;table style="width:100%"&gt;
   &lt;tr&gt;
@@ -169,8 +169,8 @@ As of Tidyverse 1.2.0, the following 8 packages are included in the core tidyver
 
 ---
 
-# Tidyverse core packages
-## Data visualization and exploration
+## Tidyverse core packages
+### Data visualization and exploration
 
  &lt;table style="width:100%"&gt;
   &lt;tr&gt;
@@ -181,7 +181,7 @@ As of Tidyverse 1.2.0, the following 8 packages are included in the core tidyver
   
 ---
 
-# Load all tidyverse package
+## Load all tidyverse package
 
 
 ```r
@@ -189,25 +189,25 @@ library(tidyverse)
 ```
 
 ```
-## ── Attaching packages ──────────────────────────────────────────────────────── tidyverse 1.2.1 ──
+## ── Attaching packages ────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
 ```
 
 ```
-## ✔ ggplot2 3.2.0     ✔ purrr   0.3.2
+## ✔ ggplot2 3.2.1     ✔ purrr   0.3.3
 ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
-## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
+## ✔ tidyr   1.0.0     ✔ stringr 1.4.0
 ## ✔ readr   1.3.1     ✔ forcats 0.4.0
 ```
 
 ```
-## ── Conflicts ─────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+## ── Conflicts ───────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()
 ```
 
 ---
 
-# Outline
+## Outline
 
 In the teeny tiny workshop, we will focus on:
 * tidyr
@@ -222,7 +222,7 @@ And we will also see a bit of:
 
 ---
 
-# tibble
+## tibble
 
 **tibbles** are a modern re-thinking of data frames, that leave behind some old user-unfriendly legacy of R data frames.
 
@@ -240,7 +240,7 @@ mytibble &lt;- tibble(
 
 ---
 
-# tibble
+## tibble
 
 .pull-left[
 
@@ -275,7 +275,7 @@ Why do we like tibbles:
 
 ---
 
-# tibble
+## tibble
 
 Print the first 15 rows:
 
@@ -308,7 +308,7 @@ Print the first 15 rows:
 
 ---
 
-# tibble
+## tibble
 
 Print all rows:
 
@@ -351,9 +351,10 @@ Print all rows:
 
 ---
 
-# tidyr
+## tidyr
+### Tidy data
 
-The goal of tidyr is to help you create **tidy data**. 
+The goal of **{tidyr}** is to help you create **tidy data**. 
 &lt;br&gt;
 Tidy data is data where:
 
@@ -384,7 +385,8 @@ patients &lt;- tibble(
 
 ---
 
-# tidyr
+## tidyr
+### Tidy data
 
 What is wrong here ?
 
@@ -409,6 +411,10 @@ What is wrong here ?
 
 
 ```r
+# data: tibble/data frame
+# col: column to separate
+# sep: character to use to split the column
+# into: names of the columns that are created after separation
 patients &lt;- separate(data=patients, 
                       col=3, 
                       sep="/", 
@@ -417,7 +423,8 @@ patients &lt;- separate(data=patients,
 
 ---
 
-# tidyr
+## tidyr
+### Tidy data
 
 Anything else wrong with **patients** now ?
 
@@ -452,7 +459,8 @@ patients$weight &lt;- str_remove(patients$weight, "kg")
 
 ---
 
-# tidyr
+## tidyr
+### Tidy data
 
 Is there still a problem ?
 
@@ -489,7 +497,8 @@ patients &lt;- mutate_at(patients, c("height", "weight"), as.numeric)
 
 ---
 
-# tidyr
+## tidyr
+### Tidy data
 
 **patients** is now tidy !
 
@@ -506,7 +515,51 @@ patients &lt;- mutate_at(patients, c("height", "weight"), as.numeric)
 
 ---
 
-# dplyr
+## tidyr
+### separate &amp; unite
+
+The **separate()** function takes values from a column and separate them using a specified separator.
+&lt;br&gt;
+The **unite()** function does the opposite!
+&lt;br&gt;
+Let's practice on the **table5** data set: 
+* Column **rate** contains the number of cases / total population: separate the column into 2: **cases** and **population**
+* Columns **century** and **year** make more sense together **1999** instead of **19** and **9**: unite them into column **year** (check **?unite** to see how unite works).
+
+--
+
+
+```r
+# separate column "rate"
+table5a &lt;- separate(table5, 
+         rate, 
+         sep="/", 
+         into=c("cases", "population"))
+
+# unite columns "century" and "year"
+table5b &lt;- unite(table5a,
+                year,
+                c("century", "year"), 
+                sep="")
+
+table5b
+```
+
+```
+## # A tibble: 6 x 4
+##   country     year  cases  population
+##   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;     
+## 1 Afghanistan 1999  745    19987071  
+## 2 Afghanistan 2000  2666   20595360  
+## 3 Brazil      1999  37737  172006362 
+## 4 Brazil      2000  80488  174504898 
+## 5 China       1999  212258 1272915272
+## 6 China       2000  213766 1280428583
+```
+
+---
+
+## dplyr
    
 Introduces a grammar of data manipulation. [Cheat sheet](https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf)
  
@@ -536,7 +589,7 @@ We will introduce the **5 intuitively-named key functions** from **{dplyr}**:
  
 ---
 
-# dplyr
+## dplyr
  
 All 5 functions work in a similar and consistent way:
 
@@ -552,18 +605,18 @@ All 5 functions work in a similar and consistent way:
 
 * The result is a new data frame.
  
- &gt; *Note that dplyr never modifies the input: you need to* ***redirect the output*** *and save in a new - or the same - object.*
+ &gt; *Note that {dplyr} never modifies the input: you need to* ***redirect the output*** *and save in a new - or the same - object.*
 
 ---
 
-# dplyr
+## dplyr
 
 Let's try!
  
 We will use the **presidential** data set: it contains data of the terms of **presidents of the USA**, from Eisenhower to Obama:
 * name
-* starting date of term
-* ending date of term
+* starting date of mandate
+* ending date of mandate
 * political party
  
 --
@@ -592,8 +645,8 @@ presidential
 
 ---
 
-# dplyr
-## mutate &amp; transmute
+## dplyr
+### mutate &amp; transmute
 
 **mutate** allows to create new columns that are functions of the existing ones.
 
@@ -627,8 +680,8 @@ mutate(presidential,
 
 ---
 
-# dplyr
-## mutate &amp; transmute
+## dplyr
+### mutate &amp; transmute
 
 &gt; Use **unquoted** column names
 
@@ -640,8 +693,10 @@ mutate(presidential,
 
 &gt; Note that **mutate** keeps all columns. 
 
-# dplyr
-## mutate &amp; transmute
+---
+
+## dplyr
+### mutate &amp; transmute
 
 If you want to keep only the newly created columns (drop the remaining ones), you can use **transmute** instead of **mutate**:
 
@@ -672,8 +727,8 @@ transmute(presidential,
 
 ---
 
-# dplyr
-## mutate &amp; transmute
+## dplyr
+### mutate &amp; transmute
 
 Re-assign to a new - or the same - data frame/tibble as with the regular base R **assignment operator: &lt;-**:
 
@@ -685,8 +740,8 @@ presidential &lt;- mutate(presidential,
  
 ---
 
-# dplyr
-## select
+## dplyr
+### select
 
 Select column **name** only with:
 
@@ -789,8 +844,8 @@ select(presidential,
 
 ---
 
-# dplyr
-## select
+## dplyr
+### select
 
 
 ```r
@@ -816,8 +871,8 @@ select(presidential, name)
  
 ---
 
-# dplyr
-## select
+## dplyr
+### select
 
 Select columns **party** and **name** (in that order):
 
@@ -844,8 +899,8 @@ select(presidential, party, name)
 
 ---
 
-# dplyr
-## select
+## dplyr
+### select
 
 Rename a column as you select it:
 
@@ -872,8 +927,8 @@ select(presidential, party, President=name)
 
 ---
 
-# dplyr
-## rename
+## dplyr
+### rename
 
 Rename a column without prior selection with **rename**
 
@@ -900,8 +955,8 @@ rename(presidential, President=name)
 
 ---
 
-# dplyr
-## select
+## dplyr
+### select
 
 Select all columns **except** party:
 
@@ -928,8 +983,8 @@ select(presidential, -party)
 
 ---
 
-# dplyr
-## select
+## dplyr
+### select
 
 Select all columns between **start** and **party** (inclusive)
 
@@ -956,8 +1011,8 @@ Select all columns between **start** and **party** (inclusive)
 
 ---
 
-# dplyr
-## select_if
+## dplyr
+### select_if
 
 Select only columns containing characters with **select_if**:
  
@@ -988,8 +1043,8 @@ Select only columns containing characters with **select_if**:
 
 ---
 
-# dplyr
-## filter
+## dplyr
+### filter
 
 **filter** is used to filter rows in a data frame/tibble.
 
@@ -1088,8 +1143,8 @@ Keep rows if party is **Democratic**:
 
 ---
 
-# dplyr
-## filter
+## dplyr
+### filter
 
 Keep rows if party is **Democratic**:
 
@@ -1111,8 +1166,8 @@ Keep rows if party is **Democratic**:
 
 ---
 
-# dplyr
-## filter
+## dplyr
+### filter
 
 You can filter using several variables/columns:
 
@@ -1131,14 +1186,15 @@ filter(presidential,
 
 ---
 
-# dplyr
-## summarise &amp; group_by
+## dplyr
+### summarise &amp; group_by
  
 **summarise** collapses a data frame to a single row (base R: **aggregate**)
  
 --
  
 Get average length of mandates
+
 
 ```r
 summarise(presidential, 
@@ -1152,6 +1208,13 @@ summarise(presidential,
 ## 1 2125.091 days
 ```
 
+---
+
+## dplyr
+### summarise &amp; group_by
+ 
+**summarise** collapses a data frame to a single row (base R: **aggregate**)
+ 
 --
 
 Get average length of mandates + total count of entries
@@ -1171,18 +1234,18 @@ summarise(presidential,
 
 ---
 
-# dplyr
-## summarise &amp; group_by
+## dplyr
+### summarise &amp; group_by
  
-You can combine **summarise** with **group_by** to get the average length of mandates **per political party**
+You can combine **summarise()** with **group_by()** to get the average length of mandates **per political party**
 
 --
 
-**group_by** defines a grouping based on existing variables.
+**group_by()** defines a grouping based on existing variables.
 
 --
 
-**summarise** then processes the command based on the grouping
+**summarise()** then processes the command based on the grouping
 
 --
 
@@ -1191,21 +1254,21 @@ You can combine **summarise** with **group_by** to get the average length of man
 groups &lt;- group_by(presidential, 
                    party)
 summarise(groups, 
-          mean(duration_days))
+          mean(duration_days), n())
 ```
 
 ```
-## # A tibble: 2 x 2
-##   party      `mean(duration_days)`
-##   &lt;chr&gt;      &lt;drtn&gt;               
-## 1 Democratic 2045.4 days          
-## 2 Republican 2191.5 days
+## # A tibble: 2 x 3
+##   party      `mean(duration_days)` `n()`
+##   &lt;chr&gt;      &lt;drtn&gt;                &lt;int&gt;
+## 1 Democratic 2045.4 days               5
+## 2 Republican 2191.5 days               6
 ```
 
 ---
 
-# dplyr
-## arrange
+## dplyr
+### arrange
 
 Order rows by increasing mandate duration with **arrange**
 
@@ -1236,8 +1299,8 @@ arrange(presidential, duration_days)
 
 ---
 
-# dplyr
-## arrange
+## dplyr
+### arrange
 
 You can use several columns for the sorting
 
@@ -1264,8 +1327,8 @@ arrange(presidential, duration_days, name)
 
 ---
 
-# magritrrr
-## %&gt;% : forward-pipe operator
+## magritrrr
+### %&gt;% : forward-pipe operator
 
 The **{magritrrr}** package introduced the **forward-pipe operator**
 
@@ -1277,8 +1340,8 @@ Allows to process one command after another.
 
 ---
 
-# magritrrr
-## %&gt;% : forward-pipe operator
+## magritrrr
+### %&gt;% : forward-pipe operator
 
 Basic piping:
 
@@ -1305,8 +1368,8 @@ mutate(presidential, duration_days=end-start) %&gt;%
 
 ---
 
-# magritrrr
-## %&gt;% : forward-pipe operator
+## magritrrr
+### %&gt;% : forward-pipe operator
 
 Example:
 
@@ -1326,7 +1389,7 @@ mutate(presidential, duration_days=end-start) %&gt;%
 
 ---
 
-# ggplot2
+## ggplot2
 
 
 
@@ -1661,8 +1724,8 @@ library(leaflet)
 leaflet() %&gt;% addTiles() %&gt;% setView(-93.65, 42.0285, zoom = 17)
 ```
 
-<div id="htmlwidget-16db95448137ee2498ad" style="width:100%;height:432px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-16db95448137ee2498ad">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]}],"setView":[[42.0285,-93.65],17,[]]},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-23c52bd991d3e26ebc86" style="width:100%;height:432px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-23c52bd991d3e26ebc86">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]}],"setView":[[42.0285,-93.65],17,[]]},"evals":[],"jsHooks":[]}</script>
 
 ---
 
@@ -1674,8 +1737,8 @@ DT::datatable(
 )
 ```
 
-<div id="htmlwidget-cbe4bbdfde22dc6febe7" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-cbe4bbdfde22dc6febe7">{"x":{"filter":"none","fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10"],[5.1,4.9,4.7,4.6,5,5.4,4.6,5,4.4,4.9],[3.5,3,3.2,3.1,3.6,3.9,3.4,3.4,2.9,3.1],[1.4,1.4,1.3,1.5,1.4,1.7,1.4,1.5,1.4,1.5],[0.2,0.2,0.2,0.2,0.2,0.4,0.3,0.2,0.2,0.1],["setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Sepal.Length<\/th>\n      <th>Sepal.Width<\/th>\n      <th>Petal.Length<\/th>\n      <th>Petal.Width<\/th>\n      <th>Species<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":8,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[8,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-8a51b82f4a41f42614b4" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8a51b82f4a41f42614b4">{"x":{"filter":"none","fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10"],[5.1,4.9,4.7,4.6,5,5.4,4.6,5,4.4,4.9],[3.5,3,3.2,3.1,3.6,3.9,3.4,3.4,2.9,3.1],[1.4,1.4,1.3,1.5,1.4,1.7,1.4,1.5,1.4,1.5],[0.2,0.2,0.2,0.2,0.2,0.4,0.3,0.2,0.2,0.1],["setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Sepal.Length<\/th>\n      <th>Sepal.Width<\/th>\n      <th>Petal.Length<\/th>\n      <th>Petal.Width<\/th>\n      <th>Species<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":8,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[8,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 
 ---
 
@@ -2114,7 +2177,24 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     deleted = true;
   });
-})();</script>
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
 
 <script>
 (function() {
