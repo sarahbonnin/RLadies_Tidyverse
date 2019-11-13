@@ -26,7 +26,10 @@ output:
 
 --
 
-* All packages share **common practices**: philosophy, grammar, and data structure.
+* All packages share **good practices** in terms of: 
+  * philosophy
+  * grammar
+  * data structure.
 
 ---
 
@@ -56,15 +59,17 @@ But rather new Tidyverse user !
 
 As of Tidyverse 1.2.0, the following 8 packages are included in the core tidyverse:
 
-
+--
   * Data Wrangling and Transformation
         dplyr
         tidyr 
         stringr
         forcats
+--
   * Data Import and Management
         tibble
         readr 
+--
   * Functional Programming
         purrr
   * Data Visualization and Exploration
@@ -76,7 +81,7 @@ As of Tidyverse 1.2.0, the following 8 packages are included in the core tidyver
 
 ### Data Wrangling and Transformation
 
- <table style="width:100%">
+ <table cellspacing="0" cellpadding="0" style="width:100%">
   <tr>
     <td><p style="width: 50px;"><img src="https://dplyr.tidyverse.org/logo.png"></p></td>
     <td><b>dplyr</b>: Package for data manipulation and exploratory data analysis.</td>
@@ -85,7 +90,7 @@ As of Tidyverse 1.2.0, the following 8 packages are included in the core tidyver
   
 --
 
-<table style="width:100%">
+<table cellspacing="0" cellpadding="0" style="width:100%">
   <tr>
     <td><p style="width: 50px;"><img src="https://tidyr.tidyverse.org/logo.png"></p></td>
     <td></b>tidyr</b>: Package that aims at creating tidy data. Tidy data describe a standard way of storing data.</td>
@@ -94,7 +99,7 @@ As of Tidyverse 1.2.0, the following 8 packages are included in the core tidyver
 
 --
 
- <table style="width:100%">
+ <table cellspacing="0" cellpadding="0" style="width:100%">
   <tr>
     <td><p style="width: 50px;"><img src="https://stringr.tidyverse.org/logo.png"></p></td>
     <td><b>stringr</b>: Package that provides a set of functions for user-friendly string manipulation.</td>
@@ -103,7 +108,7 @@ As of Tidyverse 1.2.0, the following 8 packages are included in the core tidyver
   
 --
 
- <table style="width:100%">
+ <table cellspacing="0" cellpadding="0" style="width:100%">
   <tr>
     <td><p style="width: 50px;"><img src="https://forcats.tidyverse.org/logo.png"></p></td>
     <td><b>forcats</b>: Package that helps you deal with factors.</td>
@@ -115,7 +120,7 @@ As of Tidyverse 1.2.0, the following 8 packages are included in the core tidyver
 ## Tidyverse core packages
 ### Data Import and Management
 
- <table style="width:100%">
+ <table cellspacing="0" cellpadding="0" style="width:100%">
   <tr>
     <td><p style="width: 50px;"><img src="https://readr.tidyverse.org/logo.png"></p></td>
     <td><b>readr</b>: Package for fast and efficient import and export of data.
@@ -125,7 +130,7 @@ As of Tidyverse 1.2.0, the following 8 packages are included in the core tidyver
   
 --
 
- <table style="width:100%">
+ <table cellspacing="0"; cellpadding="0"; style="width:100%">
   <tr>
     <td><p style="width: 50px;"><img src="https://ih1.redbubble.net/image.543363717.2207/flat,750x,075,f-pad,750x1000,f8f8f8.jpg"></p></td>
     <td><b>tibble</b>: Tibbles are improved - easier to manage -  data frames.</td>
@@ -137,7 +142,7 @@ As of Tidyverse 1.2.0, the following 8 packages are included in the core tidyver
 ## Tidyverse core packages
 ### Functional Programming
 
- <table style="width:100%">
+ <table cellspacing="0" cellpadding="0" style="width:100%">
   <tr>
     <td><p style="width: 50px;"><img src="https://purrr.tidyverse.org/logo.png"></p></td>
     <td><b>purrr</b>: Package that aims at enhancing R's functional programming toolkit. It provides a set of tools for working with functions and vectors.</td>
@@ -149,7 +154,7 @@ As of Tidyverse 1.2.0, the following 8 packages are included in the core tidyver
 ## Tidyverse core packages
 ### Data visualization and exploration
 
- <table style="width:100%">
+ <table cellspacing="0" cellpadding="0" style="width:100%">
   <tr>
     <td><p style="width: 50px;"><img src="https://ggplot2.tidyverse.org/logo.png"></p></td>
     <td><b>ggplot2</b>: Package for data vizualization of graphics based on Leland Wilkinson's' <b>G</b>rammar of <b>G</b>raphics: graphics are built one layer at a time.</td>
@@ -169,12 +174,12 @@ library(tidyverse)
 ## Outline
 
 In the teeny tiny workshop, we will focus on:
+* dplyr (mainly)
 * tidyr
-* dplyr
 
 --
 
-And we will also see a bit of:
+And we will see a bit of:
 * tibble
 * stringr
 * ggplot2
@@ -183,11 +188,15 @@ And we will also see a bit of:
 
 ## tibble
 
-**tibbles** are a modern re-thinking of data frames, that leave behind some old user-unfriendly legacy of R data frames.
+What are **tibbles**?
+
+* Modern re-thinking of data frames.
+
+* Leave behing old user-unfriendly features of data frames.
 
 --
 
-Let's create a tibble:
+Let's create a simple tibble with **tibble()**:
 
 ```{r}
 mytibble <- tibble(
@@ -209,12 +218,17 @@ mytibble
 --
 
 .pull-right[
-Why do we like tibbles:
-- **Dimensions** of tibble readily available.
-- Information about **data types** as you display the tibble.
-- Only first 10 rows are displayed.
-- **No automatic conversion** of characters to factors
-- No automatic change of column names
+Why do we like tibbles?
+
+- **Dimensions** shown.
+
+- Information about **data types**.
+
+- **No character to factor conversion**.
+
+- No automatic change of column names.
+
+- Only the first rows are displayed.
 ]
 
 ---
@@ -258,9 +272,68 @@ Tidy data is data where:
 
 - Each **value** is a **cell**.
 
---
+---
 
-Let's create a toy untidy tibble:
+## tidyr
+### separate & unite
+
+* **separate()**: separate a column into 2 (or more)
+
+* **unite()**: does just the opposite!
+
+Let's practice on the **table5** data set:
+
+```{r}
+table5
+```
+---
+
+## tidyr
+### separate & unite
+
+* **Separate** column **rate** into 2: 
+  * **cases** and **population**
+
+* **Unite** columns **century** and **year** into 1:
+  * **year**: **1999** instead of **19** and **99**
+  * *check ?unite*
+
+---
+
+## tidyr
+### separate & unite
+
+```{r}
+# separate column "rate"
+table5a <- separate(table5, 
+         rate, 
+         sep="/", 
+         into=c("cases", "population"))
+
+table5a
+```
+
+---
+
+## tidyr
+### separate & unite
+
+```{r}
+# unite columns "century" and "year"
+table5b <- unite(table5a,
+                year,
+                c("century", "year"), 
+                sep="")
+
+table5b
+```
+
+---
+
+## tidyr
+### Tidy data
+
+Practice a bit more: let's create a toy **untidy tibble**:
 
 ```{r}
 patients <- tibble(
@@ -279,11 +352,17 @@ patients <- tibble(
 patients
 ```
 
-What is wrong here ? -- **2 variables in the third column !**
+What is wrong here ?
 
 --
 
-* Let's split the column using the **separate** function:
+**2 variables in the third column !**
+
+--
+
+* Split the column with **separate()**:
+
+--
 
 ```{r}
 # data: tibble/data frame
@@ -317,7 +396,7 @@ patients
 
 --
 
-* Here we introduce the **str_remove** function from the **{stringr}** package
+* Here we introduce the **str_remove()** function from the **{stringr}** package
 
 ```{r}
 patients$height <- str_remove(patients$height, "cm")
@@ -345,7 +424,7 @@ patients
 
 --
 
-* Here we introduce **mutate_at** from the **{dplyr}** package:
+* Here we introduce **mutate_at()** from the **{dplyr}** package:
 
 ```{r}
 # first argument: the tibble
@@ -363,44 +442,6 @@ patients <- mutate_at(patients, c("height", "weight"), as.numeric)
 
 ```{r, echo = F}
 patients
-```
-
----
-
-## tidyr
-### separate & unite
-
-**separate()**: separate a column into 2 (or more)
-<br>
-The **unite()**: does the opposite!
-<br><br>
-Let's practice on the **table5** data set: 
-```{r}
-table5
-```
-
-* **Separate** column **rate** into 2: **cases** and **population**
-* **Unite** columns **century** and **year** into column **year**: **1999** instead of **19** and **99**. *(check ?unite)*.
-
----
-
-## tidyr
-### separate & unite
-
-```{r}
-# separate column "rate"
-table5a <- separate(table5, 
-         rate, 
-         sep="/", 
-         into=c("cases", "population"))
-
-# unite columns "century" and "year"
-table5b <- unite(table5a,
-                year,
-                c("century", "year"), 
-                sep="")
-
-table5b
 ```
 
 ---
@@ -445,10 +486,6 @@ All 5 functions work in a similar and consistent way:
 
 --
 
-* The subsequent arguments describe what to do with the data frame, using the **variable names** (without quotes).
-
---
-
 * The result is a new data frame.
  
  > *Note that {dplyr} never modifies the input: you need to* ***redirect the output*** *and save in a new - or the same - object.*
@@ -459,16 +496,21 @@ All 5 functions work in a similar and consistent way:
 
 Let's try!
  
-We will use the **presidential** data set: it contains data of the terms of **presidents of the USA**, from Eisenhower to Obama:
-* name
-* starting date of mandate
-* ending date of mandate
-* political party
+We will use the **presidential** data set.
+*It contains data of the terms of* ***presidents of the USA***, *from Eisenhower to Obama:*
+
+* Name
+
+* Term starting date
+
+* Term ending date of mandate
+
+* Political party
  
 --
 
 ```{r}
-presidential
+print(presidential, n=6)
 ```
 
 ---
@@ -476,7 +518,7 @@ presidential
 ## dplyr
 ### mutate & transmute
 
-**mutate** allows to create new columns that are functions of the existing ones.
+**mutate()** allows to create new columns that are functions of the existing ones.
 
 --
 
@@ -489,6 +531,7 @@ presidential
 mutate(presidential, 
     duration_days=end - start) #<<
 ```
+> Note that the new column is of the **time** class!
 
 ---
 
@@ -510,7 +553,7 @@ mutate(presidential,
 ## dplyr
 ### mutate & transmute
 
-If you want to keep only the newly created columns (drop the remaining ones), you can use **transmute** instead of **mutate**:
+Keep only the **newly created column(s)** (drop the remaining ones) with **transmute()** instead of **mutate()**:
 
 --
 
@@ -524,7 +567,7 @@ transmute(presidential,
 ## dplyr
 ### mutate & transmute
 
-Re-assign to a new - or the same - data frame/tibble as with the regular base R **assignment operator: <-**
+Re-assign to a new - or the same - data frame/tibble using the R **assignment operator: <-**
 
 ```{r, eval=T}
 presidential <- mutate(presidential, 
@@ -538,15 +581,10 @@ presidential <- mutate(presidential,
 
 Select column **name** only with:
 
-```{r, eval=F, echo =T}
-select(presidential, 
-       name)
-```
-
 ```{r, highlight=c(1,3), echo=F, warning=F,message=F}
 library(kableExtra)
 knitr::kable(presidential) %>% 
-  kable_styling(bootstrap_options = "striped", font_size = 12) %>% 
+  kable_styling(bootstrap_options = "striped", font_size = 14) %>% 
   column_spec(1, background = "yellow")
 ```
 
@@ -566,7 +604,8 @@ select(presidential, name)
 
 Select columns **party** and **name** (in that order):
 ```{r, eval=T}
-select(presidential, party, name)
+select(presidential, 
+       party, name) #<<
 ```
 
 ---
@@ -576,7 +615,8 @@ select(presidential, party, name)
 
 Rename a column as you select it:
 ```{r, eval=T}
-select(presidential, party, President=name)
+select(presidential, 
+       party, President=name) #<<
 ```
 
 ---
@@ -586,7 +626,8 @@ select(presidential, party, President=name)
 
 Rename a column without prior selection with **rename**
 ```{r, eval=T}
-rename(presidential, President=name)
+rename(presidential, 
+       President=name) #<<
 ``` 
 
 ---
@@ -596,7 +637,8 @@ rename(presidential, President=name)
 
 Select all columns **except** party:
 ```{r, eval=T}
-select(presidential, -party)
+select(presidential, 
+       -party) #<<
 ```
 
 ---
@@ -606,7 +648,8 @@ select(presidential, -party)
 
 Select all columns between **start** and **party** (inclusive)
 ```{r, eval=T}
- select(presidential, (start:party))
+ select(presidential, 
+        start:party) #<<
 ```
 
 ---
@@ -614,16 +657,16 @@ Select all columns between **start** and **party** (inclusive)
 ## dplyr
 ### select_if
 
-Select only columns containing characters with **select_if**:
+Select only columns containing characters with **select_if()**:
  ```{r, eval=T}
 select_if(presidential, 
-    is.character)
+    is.character) #<<
 ```
 
 ```{r, eval=F, echo =FALSE}
 #Select all columns that contain a date 
 select_if(presidential, 
-          function(x)inherits(x, 'Date'))
+          function(x)inherits(x, 'Date')) #<<
 ```
  
 
@@ -632,13 +675,13 @@ select_if(presidential,
 ## dplyr
 ### filter
 
-**filter** is used to filter rows in a data frame/tibble.
+**filter()** is used to filter rows in a data frame/tibble.
 
 Keep rows if party is **Democratic**:
 
 ```{r, highlight=c(1,3), echo=F, warning=F,message=F}
 knitr::kable(presidential) %>% 
-  kable_styling(bootstrap_options = "striped", font_size = 12) %>% 
+  kable_styling(bootstrap_options = "striped", font_size = 14) %>% 
   row_spec(c(2:3, 6, 9, 11), background = "yellow")
 ```
 
@@ -650,7 +693,7 @@ knitr::kable(presidential) %>%
 Keep rows if party is **Democratic**:
 ```{r, eval=T}
  filter(presidential, 
-        party=="Democratic")
+        party=="Democratic") #<<
 ```
 
 ---
@@ -661,15 +704,15 @@ Keep rows if party is **Democratic**:
 You can filter using several variables/columns:
 ```{r, eval=F}
 filter(presidential, 
-       party=="Republican", name=="Bush")
+       party=="Republican", name=="Bush") #<<
 
 # This implicity uses the "&", i.e. the fact that both conditions have to be TRUE
 filter(presidential, 
-       party=="Republican" & name=="Bush")
+       party=="Republican" & name=="Bush") #<<
 
 # Any logical operators can be used
 filter(presidential, 
-       name %in% c("Bush", "Kennedy"))
+       name %in% c("Bush", "Kennedy")) #<<
 ```
 
 ---
@@ -677,15 +720,15 @@ filter(presidential,
 ## dplyr
 ### summarise & group_by
  
-**summarise** collapses a data frame to a single row (base R: **aggregate**)
+**summarise()** collapses a data frame to a single row (base R: **aggregate**)
  
 --
  
-Get average length of mandates
+Get average length of terms:
 
 ```{r, eval=T}
 summarise(presidential, 
-          mean(duration_days))
+          mean(duration_days)) #<<
 ```
 
 ---
@@ -695,11 +738,12 @@ summarise(presidential,
  
 **summarise** collapses a data frame to a single row (base R: **aggregate**)
 
-Get average length of mandates + total count of entries
+Get average length of terms + count
 
 ```{r, eval=T}
 summarise(presidential,
-          mean(duration_days), n())
+          mean(duration_days), 
+          n()) #<<
 ```
 
 ---
@@ -707,21 +751,21 @@ summarise(presidential,
 ## dplyr
 ### summarise & group_by
  
-You can combine **summarise()** with **group_by()** to get the average length of mandates **per political party**
+You can combine **summarise()** with **group_by()** to get the average length of terms **per political party**:
 
 --
 
-**group_by()** defines a grouping based on existing variables.
+* **group_by()** defines a grouping based on existing variables.
 
 --
 
-**summarise()** then processes the command based on the grouping
+* **summarise()** then processes the command based on the grouping
 
 --
 
 ```{r}
-groups <- group_by(presidential, 
-                   party)
+groups <- group_by(presidential, #<<
+                   party) #<<
 summarise(groups, 
           mean(duration_days), n())
 ```
@@ -731,7 +775,7 @@ summarise(groups,
 ## dplyr
 ### arrange
 
-Order rows by increasing mandate duration with **arrange**
+Order rows by increasing mandate duration with **arrange()**
 ```{r, eval=T}
 arrange(presidential, duration_days)
 # decreasing order: arrange(presidential2, desc(duration_days))
@@ -744,7 +788,8 @@ arrange(presidential, duration_days)
 
 You can use several columns for the sorting
 ```{r, eval=T}
-arrange(presidential, duration_days, name)
+arrange(presidential, 
+        duration_days, name)
 ```
 
 ---
@@ -754,28 +799,33 @@ arrange(presidential, duration_days, name)
 
 The **{magritrrr}** package introduced the **forward-pipe operator**
 
-.center[
 <p style="width: 200px;"><img src="https://magrittr.tidyverse.org/logo.png"></p>
-]
 
-Allows to process one command after another.
+  
+Allows to process the output of a function as the input of the following function.
 
 ---
 
 ## magritrrr
 ### %>% : forward-pipe operator
 
-Basic piping:
+Basic piping: read ***from left to right***
+
 --
+
 * **mytibble %>% function1** is equivalent to **function1(x)**
+
 --
+
 * **mytibble %>% function1(y)** is equivalent to **function1(x, y)**
+
 --
+
 * **mytibble %>% function1 %>% function2** is equivalent to **function2(function1(x))**
 
 --
 
-For example:
+Example:
 
 ```{r}
 mutate(presidential, duration_days=end-start) %>%
@@ -810,650 +860,171 @@ mutate(presidential, duration_days=end-start) %>%
 
 ---
 
+## dplyr & %>%
+### Hands on !
+
+We will work with the **storms** data set:
+* Positions and attributes of **198 tropical storms**, measured every 6 hours
+
+```{r}
+storms
+```
+
+---
+
+## dplyr & %>%
+### Hands on !
+
+We will work with the **storms** data set:
+
+
+1. Remove columns **month**, **day**, **hour**, **lat**, **long**, **ts_diameter** and **hu_diameter**.
+  * Calculate the **median pressure for each storm status**.
+
+2. Calculate the **minimum wind speed for each storm (name)**.
+  * What storm has the minimum wind speed?
+
+3. Calculate **how many storms happened each year**.
+  * *TIP: find what* ***distinct()*** *from* ***{dplyr}*** can do...
+  * What are the years with the **maximum** number of storms?
+
+---
+
+## dplyr & %>%
+### Hands on !
+
+1. Remove columns **month**, **day**, **hour**, **lat**, **long**, **ts_diameter** and **hu_diameter**.
+  * Calculate the **median pressure for each storm status**.
+
+--
+
+```{r, eval=F}
+# remove columns
+select(storms, -lat, -long, -ts_diameter, -hu_diameter)
+# same as:
+select(storms, -c(lat, long, ts_diameter, hu_diameter))
+```
+
+--
+
+```{r}
+# group by status and calculate median pressure per storm status
+select(storms, -lat, -long, -ts_diameter, -hu_diameter) %>% 
+  group_by(status) %>%
+  summarise(median(pressure))
+```
+
+---
+
+## dplyr & %>%
+### Hands on !
+
+2. Calculate the **minimum wind speed for each storm (name)**.
+  * What storm has the **smallest minimum wind speed**?
+
+--
+
+```{r, eval=F}
+# group storms by name and calculate minimum wind speed
+storms %>%
+  group_by(name) %>%
+  summarise(min_wind = min(wind))
+```
+
+--
+
+```{r}
+# sort by increasing minimum wind speed
+storms %>%
+  group_by(name) %>%
+  summarise(min_wind = min(wind)) %>%
+  arrange(min_wind)
+```
+
+---
+
+## dplyr & %>%
+### Hands on !
+
+3. Calculate **how many storms happened each year**.
+  * *TIP: find what* ***distinct()*** *from* ***{dplyr}*** can do...
+  * What are the years with the **maximum** number of storms?
+
+--
+
+```{r, eval=F}
+# get unique rows when considering both name and year columns
+distinct(storms, name, year)
+```
+
+--
+
+```{r, eval=F}
+# group by year and count the number of storms
+distinct(storms, name, year) %>%
+  group_by(year) %>%
+  summarise(storms_per_year=n())
+```
+
+--
+
+```{r}
+# sort by decreasing number of storms
+distinct(storms, name, year) %>%
+  group_by(year) %>%
+  summarise(storms_per_year=n()) %>%
+  arrange(desc(storms_per_year))
+```
+
+---
+
 ## ggplot2
 ### Visualization
 
-```{r, fig.height=5, eval=F, echo=F}
-mutate(table1,
-       percent_cases= (cases / population)*100) %>%
-  ggplot(aes(x=percent_cases, col=country, fill=country)) + geom_bar()
-
-ggplot(data=chickwts, aes(x=feed, y=weight)) + 
-  geom_boxplot() +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
-  ggtitle("Boxplot of the chickwts dataset")
-```
-
----
-
-
-
-
-
-
-name: test
-class: center, middle, split-two white
-
-background-image: url(https://previews.123rf.com/images/birute/birute1601/birute160100024/50901392-barcelona-typical-floor-tiles-with-a-flower-motif.jpg)
-
-.column.bg-main1[.content[
-  content of first column
-]]
-.column.bg-main2[.content[
-  content of second column
-]]
-
-
-<!---
-comment
---->
-
-.footnote[
-this is a test
-]
-
-???
-some note
-
----
-
-background-image: url(https://upload.wikimedia.org/wikipedia/commons/b/be/Sharingan_triple.svg)
-
-```{r setup, include=FALSE}
-options(htmltools.dir.version = FALSE)
-```
-
-???
-
-Image credit: [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Sharingan_triple.svg)
-
----
-class: center, middle
-template: test
-
-# xaringan
-
-### /ʃaː.'riŋ.ɡan/
-
+As Mireia said in October: **build plots one layer at a time!** (separated with **+**)
+  * Data
+  * Aesthetics
+  * Geometries
 
 --
+  
+```{r, fig.height=3, eval=T, echo=T}
+ggplot(storms, aes(x=wind, y=pressure)) +
+    geom_point()
+```
+
+---
+
+## ggplot2
+### Visualization
+
+Combine with the data wrangling / selection with **%>%**:
+
+--
+
+```{r, fig.height=3.5, eval=T, echo=T}
+storms %>%
+  filter(name %in% c("Tony", "Paloma", "Zeta", "Luis", "Juliet", "Clara")) %>%
+  ggplot(aes(x=wind, y=pressure, col=name)) +
+    geom_point() +
+    theme_classic() +
+    ggtitle("Storms: wind vs pressure")
+```
+
+
+---
+
 class: inverse, center, middle
 
-# Get Started
-
----
-
-# Hello World
-
-Install the **xaringan** package from [Github](https://github.com/yihui/xaringan):
-
-```{r eval=FALSE, tidy=FALSE}
-devtools::install_github("yihui/xaringan")
-```
+# THANK YOU !
 
 --
 
-You are recommended to use the [RStudio IDE](https://www.rstudio.com/products/rstudio/), but you do not have to.
+Follow us on Twitter ! @RLadiesBCN
 
-- Create a new R Markdown document from the menu `File -> New File -> R Markdown -> From Template -> Ninja Presentation`;<sup>1</sup>
-
---
-
-- Click the `Knit` button to compile it;
+![](https://media.giphy.com/media/26BRxIdjE82KNmVJm/giphy.gif){width=100px height=100px}
 
 --
 
-- or use the [RStudio Addin](https://rstudio.github.io/rstudioaddins/)<sup>2</sup> "Infinite Moon Reader" to live preview the slides (every time you update and save the Rmd document, the slides will be automatically reloaded in RStudio Viewer.
-
-.footnote[
-[1] 中文用户请看[这份教程](http://slides.yihui.name/xaringan/zh-CN.html)
-
-[2] See [#2](https://github.com/yihui/xaringan/issues/2) if you do not see the template or addin in RStudio.
-]
-
----
-background-image: url(`r xaringan:::karl`)
-background-position: 50% 50%
-class: center, bottom, inverse
-
-# You only live once!
-
----
-
-# Hello Ninja
-
-As a presentation ninja, you certainly should not be satisfied by the "Hello World" example. You need to understand more about two things:
-
-1. The [remark.js](https://remarkjs.com) library;
-
-1. The **xaringan** package;
-
-Basically **xaringan** injected the chakra of R Markdown (minus Pandoc) into **remark.js**. The slides are rendered by remark.js in the web browser, and the Markdown source needed by remark.js is generated from R Markdown (**knitr**).
-
----
-
-# remark.js
-
-You can see an introduction of remark.js from [its homepage](https://remarkjs.com). You should read the [remark.js Wiki](https://github.com/gnab/remark/wiki) at least once to know how to
-
-- create a new slide (Markdown syntax<sup>*</sup> and slide properties);
-
-- format a slide (e.g. text alignment);
-
-- configure the slideshow;
-
-- and use the presentation (keyboard shortcuts).
-
-It is important to be familiar with remark.js before you can understand the options in **xaringan**.
-
-.footnote[[*] It is different with Pandoc's Markdown! It is limited but should be enough for presentation purposes. Come on... You do not need a slide for the Table of Contents! Well, the Markdown support in remark.js [may be improved](https://github.com/gnab/remark/issues/142) in the future.]
-
----
-background-image: url(`r xaringan:::karl`)
-background-size: cover
-class: center, bottom, inverse
-
-# I was so happy to have discovered remark.js!
-
----
-class: inverse, middle, center
-
-# Using xaringan
-
----
-
-# xaringan
-
-Provides an R Markdown output format `xaringan::moon_reader` as a wrapper for remark.js, and you can use it in the YAML metadata, e.g.
-
-```yaml
----
-title: "A Cool Presentation"
-output:
-  xaringan::moon_reader:
-    yolo: true
-    nature:
-      autoplay: 30000
----
-```
-
-See the help page `?xaringan::moon_reader` for all possible options that you can use.
-
----
-
-# remark.js vs xaringan
-
-Some differences between using remark.js (left) and using **xaringan** (right):
-
-.pull-left[
-1. Start with a boilerplate HTML file;
-
-1. Plain Markdown;
-
-1. Write JavaScript to autoplay slides;
-
-1. Manually configure MathJax;
-
-1. Highlight code with `*`;
-
-1. Edit Markdown source and refresh browser to see updated slides;
-]
-
-.pull-right[
-1. Start with an R Markdown document;
-
-1. R Markdown (can embed R/other code chunks);
-
-1. Provide an option `autoplay`;
-
-1. MathJax just works;<sup>*</sup>
-
-1. Highlight code with `{{}}`;
-
-1. The RStudio addin "Infinite Moon Reader" automatically refreshes slides on changes;
-]
-
-.footnote[[*] Not really. See next page.]
-
----
-
-# Math Expressions
-
-You can write LaTeX math expressions inside a pair of dollar signs, e.g. &#36;\alpha+\beta$ renders $\alpha+\beta$. You can use the display style with double dollar signs:
-
-```
-$$\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i$$
-```
-
-$$\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i$$
-
-Limitations:
-
-1. The source code of a LaTeX math expression must be in one line, unless it is inside a pair of double dollar signs, in which case the starting `$$` must appear in the very beginning of a line, followed immediately by a non-space character, and the ending `$$` must be at the end of a line, led by a non-space character;
-
-1. There should not be spaces after the opening `$` or before the closing `$`.
-
-1. Math does not work on the title slide (see [#61](https://github.com/yihui/xaringan/issues/61) for a workaround).
-
----
-
-# R Code
-
-```{r comment='#'}
-# a boring regression
-fit = lm(dist ~ 1 + speed, data = cars)
-coef(summary(fit))
-dojutsu = c('地爆天星', '天照', '加具土命', '神威', '須佐能乎', '無限月読')
-grep('天', dojutsu, value = TRUE)
-```
-
----
-
-# R Plots
-
-```{r cars, fig.height=4, dev='svg'}
-par(mar = c(4, 4, 1, .1))
-plot(cars, pch = 19, col = 'darkgray', las = 1)
-abline(fit, lwd = 2)
-```
-
----
-
-# Tables
-
-If you want to generate a table, make sure it is in the HTML format (instead of Markdown or other formats), e.g.,
-
-```{r}
-knitr::kable(head(iris), format = 'html')
-```
-
----
-
-# HTML Widgets
-
-I have not thoroughly tested HTML widgets against **xaringan**. Some may work well, and some may not. It is a little tricky.
-
-Similarly, the Shiny mode (`runtime: shiny`) does not work. I might get these issues fixed in the future, but these are not of high priority to me. I never turn my presentation into a Shiny app. When I need to demonstrate more complicated examples, I just launch them separately. It is convenient to share slides with other people when they are plain HTML/JS applications.
-
-See the next page for two HTML widgets.
-
----
-
-```{r out.width='100%', fig.height=6, eval=require('leaflet')}
-library(leaflet)
-leaflet() %>% addTiles() %>% setView(-93.65, 42.0285, zoom = 17)
-```
-
----
-
-```{r eval=require('DT'), tidy=FALSE}
-DT::datatable(
-  head(iris, 10),
-  fillContainer = FALSE, options = list(pageLength = 8)
-)
-```
-
----
-
-# Some Tips
-
-- When you use the "Infinite Moon Reader" addin in RStudio, your R session will be blocked by default. You can click the red button on the right of the console to stop serving the slides, or use the _daemonized_ mode so that it does not block your R session. To do the latter, you can set the option
-
-    ```r
-    options(servr.daemon = TRUE)
-    ```
-    
-    in your current R session, or in `~/.Rprofile` so that it is applied to all future R sessions. I do the latter by myself.
-    
-    To know more about the web server, see the [**servr**](https://github.com/yihui/servr) package.
-
---
-
-- Do not forget to try the `yolo` option of `xaringan::moon_reader`.
-
-    ```yaml
-    output:
-      xaringan::moon_reader:
-        yolo: true
-    ```
-
----
-
-# Some Tips
-
-- Slides can be automatically played if you set the `autoplay` option under `nature`, e.g. go to the next slide every 30 seconds in a lightning talk:
-
-    ```yaml
-    output:
-      xaringan::moon_reader:
-        nature:
-          autoplay: 30000
-    ```
-
---
-
-- A countdown timer can be added to every page of the slides using the `countdown` option under `nature`, e.g. if you want to spend one minute on every page when you give the talk, you can set:
-
-    ```yaml
-    output:
-      xaringan::moon_reader:
-        nature:
-          countdown: 60000
-    ```
-
-    Then you will see a timer counting down from `01:00`, to `00:59`, `00:58`, ... When the time is out, the timer will continue but the time turns red.
-    
----
-
-# Some Tips
-
-- The title slide is created automatically by **xaringan**, but it is just another remark.js slide added before your other slides.
-
-    The title slide is set to `class: center, middle, inverse, title-slide` by default. You can change the classes applied to the title slide with the `titleSlideClass` option of `nature` (`title-slide` is always applied).
-
-    ```yaml
-    output:
-      xaringan::moon_reader:
-        nature:
-          titleSlideClass: [top, left, inverse]
-    ```
-    
---
-
-- If you'd like to create your own title slide, disable **xaringan**'s title slide with the `seal = FALSE` option of `moon_reader`.
-
-    ```yaml
-    output:
-      xaringan::moon_reader:
-        seal: false
-    ```
-
----
-
-# Some Tips
-
-- There are several ways to build incremental slides. See [this presentation](https://slides.yihui.name/xaringan/incremental.html) for examples.
-
-- The option `highlightLines: true` of `nature` will highlight code lines that start with `*`, or are wrapped in `{{ }}`, or have trailing comments `#<<`;
-
-    ```yaml
-    output:
-      xaringan::moon_reader:
-        nature:
-          highlightLines: true
-    ```
-
-    See examples on the next page.
-
----
-
-# Some Tips
-
-
-.pull-left[
-An example using a leading `*`:
-
-    ```r
-    if (TRUE) {
-    ** message("Very important!")
-    }
-    ```
-Output:
-```r
-if (TRUE) {
-* message("Very important!")
-}
-```
-
-This is invalid R code, so it is a plain fenced code block that is not executed.
-]
-
-.pull-right[
-An example using `{{}}`:
-
-````
-`r ''````{r tidy=FALSE}
-if (TRUE) {
-*{{ message("Very important!") }}
-}
-```
-````
-Output:
-```{r tidy=FALSE}
-if (TRUE) {
-{{ message("Very important!") }}
-}
-```
-
-It is valid R code so you can run it. Note that `{{}}` can wrap an R expression of multiple lines.
-]
-
----
-
-# Some Tips
-
-An example of using the trailing comment `#<<` to highlight lines:
-
-````markdown
-`r ''````{r tidy=FALSE}
-library(ggplot2)
-ggplot(mtcars) + 
-  aes(mpg, disp) + 
-  geom_point() +   #<<
-  geom_smooth()    #<<
-```
-````
-
-Output:
-
-```{r tidy=FALSE, eval=FALSE}
-library(ggplot2)
-ggplot(mtcars) + 
-  aes(mpg, disp) + 
-  geom_point() +   #<<
-  geom_smooth()    #<<
-```
-
----
-
-# Some Tips
-
-When you enable line-highlighting, you can also use the chunk option `highlight.output` to highlight specific lines of the text output from a code chunk. For example, `highlight.output = TRUE` means highlighting all lines, and `highlight.output = c(1, 3)` means highlighting the first and third line.
-
-````md
-`r ''````{r, highlight.output=c(1, 3)}
-head(iris)
-```
-````
-
-```{r, highlight.output=c(1, 3), echo=FALSE}
-head(iris)
-```
-
-Question: what does `highlight.output = c(TRUE, FALSE)` mean? (Hint: think about R's recycling of vectors)
-
----
-
-# Some Tips
-
-- To make slides work offline, you need to download a copy of remark.js in advance, because **xaringan** uses the online version by default (see the help page `?xaringan::moon_reader`).
-
-- You can use `xaringan::summon_remark()` to download the latest or a specified version of remark.js. By default, it is downloaded to `libs/remark-latest.min.js`.
-
-- Then change the `chakra` option in YAML to point to this file, e.g.
-
-    ```yaml
-    output:
-      xaringan::moon_reader:
-        chakra: libs/remark-latest.min.js
-    ```
-
-- If you used Google fonts in slides (the default theme uses _Yanone Kaffeesatz_, _Droid Serif_, and _Source Code Pro_), they won't work offline unless you download or install them locally. The Heroku app [google-webfonts-helper](https://google-webfonts-helper.herokuapp.com/fonts) can help you download fonts and generate the necessary CSS.
-
----
-
-# Macros
-
-- remark.js [allows users to define custom macros](https://github.com/yihui/xaringan/issues/80) (JS functions) that can be applied to Markdown text using the syntax `![:macroName arg1, arg2, ...]` or `![:macroName arg1, arg2, ...](this)`. For example, before remark.js initializes the slides, you can define a macro named `scale`:
-
-    ```js
-    remark.macros.scale = function (percentage) {
-      var url = this;
-      return '<img src="' + url + '" style="width: ' + percentage + '" />';
-    };
-    ```
-
-    Then the Markdown text
-
-    ```markdown
-    ![:scale 50%](image.jpg)
-    ```
-
-    will be translated to
-    
-    ```html
-    <img src="image.jpg" style="width: 50%" />
-    ```
-
----
-
-# Macros (continued)
-
-- To insert macros in **xaringan** slides, you can use the option `beforeInit` under the option `nature`, e.g.,
-
-    ```yaml
-    output:
-      xaringan::moon_reader:
-        nature:
-          beforeInit: "macros.js"
-    ```
-
-    You save your remark.js macros in the file `macros.js`.
-
-- The `beforeInit` option can be used to insert arbitrary JS code before `remark.create()`. Inserting macros is just one of its possible applications.
-
----
-
-# CSS
-
-Among all options in `xaringan::moon_reader`, the most challenging but perhaps also the most rewarding one is `css`, because it allows you to customize the appearance of your slides using any CSS rules or hacks you know.
-
-You can see the default CSS file [here](https://github.com/yihui/xaringan/blob/master/inst/rmarkdown/templates/xaringan/resources/default.css). You can completely replace it with your own CSS files, or define new rules to override the default. See the help page `?xaringan::moon_reader` for more information.
-
----
-
-# CSS
-
-For example, suppose you want to change the font for code from the default "Source Code Pro" to "Ubuntu Mono". You can create a CSS file named, say, `ubuntu-mono.css`:
-
-```css
-@import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
-
-.remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
-```
-
-Then set the `css` option in the YAML metadata:
-
-```yaml
-output:
-  xaringan::moon_reader:
-    css: ["default", "ubuntu-mono.css"]
-```
-
-Here I assume `ubuntu-mono.css` is under the same directory as your Rmd.
-
-See [yihui/xaringan#83](https://github.com/yihui/xaringan/issues/83) for an example of using the [Fira Code](https://github.com/tonsky/FiraCode) font, which supports ligatures in program code.
-
----
-
-# Themes
-
-Don't want to learn CSS? Okay, you can use some user-contributed themes. A theme typically consists of two CSS files `foo.css` and `foo-fonts.css`, where `foo` is the theme name. Below are some existing themes:
-
-```{r}
-names(xaringan:::list_css())
-```
-
----
-
-# Themes
-
-To use a theme, you can specify the `css` option as an array of CSS filenames (without the `.css` extensions), e.g.,
-
-```yaml
-output:
-  xaringan::moon_reader:
-    css: [default, metropolis, metropolis-fonts]
-```
-
-If you want to contribute a theme to **xaringan**, please read [this blog post](https://yihui.name/en/2017/10/xaringan-themes).
-
----
-class: inverse, middle, center
-background-image: url(https://upload.wikimedia.org/wikipedia/commons/3/39/Naruto_Shiki_Fujin.svg)
-background-size: contain
-
-# Naruto
-
----
-background-image: url(https://upload.wikimedia.org/wikipedia/commons/b/be/Sharingan_triple.svg)
-background-size: 100px
-background-position: 90% 8%
-
-# Sharingan
-
-The R package name **xaringan** was derived<sup>1</sup> from **Sharingan**, a dōjutsu in the Japanese anime _Naruto_ with two abilities:
-
-- the "Eye of Insight"
-
-- the "Eye of Hypnotism"
-
-I think a presentation is basically a way to communicate insights to the audience, and a great presentation may even "hypnotize" the audience.<sup>2,3</sup>
-
-.footnote[
-[1] In Chinese, the pronounciation of _X_ is _Sh_ /ʃ/ (as in _shrimp_). Now you should have a better idea of how to pronounce my last name _Xie_.
-
-[2] By comparison, bad presentations only put the audience to sleep.
-
-[3] Personally I find that setting background images for slides is a killer feature of remark.js. It is an effective way to bring visual impact into your presentations.
-]
-
----
-
-# Naruto terminology
-
-The **xaringan** package borrowed a few terms from Naruto, such as
-
-- [Sharingan](http://naruto.wikia.com/wiki/Sharingan) (写輪眼; the package name)
-
-- The [moon reader](http://naruto.wikia.com/wiki/Moon_Reader) (月読; an attractive R Markdown output format)
-
-- [Chakra](http://naruto.wikia.com/wiki/Chakra) (查克拉; the path to the remark.js library, which is the power to drive the presentation)
-
-- [Nature transformation](http://naruto.wikia.com/wiki/Nature_Transformation) (性質変化; transform the chakra by setting different options)
-
-- The [infinite moon reader](http://naruto.wikia.com/wiki/Infinite_Tsukuyomi) (無限月読; start a local web server to continuously serve your slides)
-
-- The [summoning technique](http://naruto.wikia.com/wiki/Summoning_Technique) (download remark.js from the web)
-
-You can click the links to know more about them if you want. The jutsu "Moon Reader" may seem a little evil, but that does not mean your slides are evil.
-
----
-
-class: center
-
-# Hand seals (印)
-
-Press `h` or `?` to see the possible ninjutsu you can use in remark.js.
-
-![](https://upload.wikimedia.org/wikipedia/commons/7/7e/Mudra-Naruto-KageBunshin.svg)
-
----
-
-class: center, middle
-
-# Thanks!
-
-Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).
-
-The chakra comes from [remark.js](https://remarkjs.com), [**knitr**](http://yihui.name/knitr), and [R Markdown](https://rmarkdown.rstudio.com).
+Twitter: @SarahFBonnin
+LinkedIn: https://www.linkedin.com/in/sarahbonnin/
