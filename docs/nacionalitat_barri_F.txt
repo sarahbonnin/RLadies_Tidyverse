@@ -1,1 +1,0 @@
-../nacionalitat_barri_F.txt
