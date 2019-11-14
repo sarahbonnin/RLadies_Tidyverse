@@ -42,6 +42,43 @@ class: center, middle, inverse, title-slide
 
 ---
 
+## Why you might want to learn it?
+
+* More **intuitive programming**
+
+--
+
+* Code **easier to read** than with R base
+
+--
+
+* More **efficient**
+
+--
+
+**Tidyverse**
+
+
+```r
+diamonds %&gt;% 
+  select(cut, color, carat, price) %&gt;%
+  filter(cut == "Ideal") %&gt;%
+  arrange(desc(price))
+```
+
+
+--
+
+**R base**
+
+```r
+diamonds2 &lt;- diamonds[diamonds$cut == "Ideal", 
+                      c("cut", "color", "carat", "price")]
+diamonds2[order(diamonds2$price, decreasing = TRUE),]
+```
+
+---
+
 class: inverse, center, middle
 
 ## Disclaimer
@@ -81,10 +118,13 @@ As of Tidyverse 1.2.0, the following 8 packages are included in the core tidyver
 --
   * Functional Programming
         purrr
+
+--
   * Data Visualization and Exploration
         ggplot2
 
 ---
+class: inverse
 
 ## Tidyverse core packages
 
@@ -125,6 +165,7 @@ As of Tidyverse 1.2.0, the following 8 packages are included in the core tidyver
   &lt;/table&gt;
   
 ---
+class: inverse
 
 ## Tidyverse core packages
 ### Data Import and Management
@@ -147,6 +188,7 @@ As of Tidyverse 1.2.0, the following 8 packages are included in the core tidyver
   &lt;/table&gt;
   
 ---
+class: inverse
 
 ## Tidyverse core packages
 ### Functional Programming
@@ -159,6 +201,7 @@ As of Tidyverse 1.2.0, the following 8 packages are included in the core tidyver
   &lt;/table&gt;
 
 ---
+class: inverse
 
 ## Tidyverse core packages
 ### Data visualization and exploration
@@ -170,6 +213,21 @@ As of Tidyverse 1.2.0, the following 8 packages are included in the core tidyver
     &lt;/tr&gt;
   &lt;/table&gt;
   
+---
+
+## Outline
+
+In the teeny tiny workshop, we will focus on:
+* dplyr (mainly)
+* tidyr
+* tibble
+
+--
+
+And we will see a tiny bit of:
+* stringr
+* ggplot2
+
 ---
 
 ## Load all tidyverse package
@@ -195,21 +253,6 @@ library(tidyverse)
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()
 ```
-
----
-
-## Outline
-
-In the teeny tiny workshop, we will focus on:
-* dplyr (mainly)
-* tidyr
-* tibble
-
---
-
-And we will see a tiny bit of:
-* stringr
-* ggplot2
 
 ---
 
@@ -381,7 +424,7 @@ Tidy data is data where:
 --
 
 * **unite()**: does just the opposite!
-  * unite(tibble, col, *columns*, sep)
+  * unite(tibble, col, *column names*, sep)
 
 --
 
@@ -663,7 +706,7 @@ All 5 functions work in a similar and consistent way:
 
 * The result is a new data frame.
  
- &gt; *Note that {dplyr} never modifies the input: you need to* ***redirect the output*** *and save in a new - or the same - object.*
+ &gt; *Note that* ***{dplyr}*** *never modifies the input: you need to* ***redirect the output*** *and save in a new - or the same - object.*
 
 ---
 
@@ -672,6 +715,7 @@ All 5 functions work in a similar and consistent way:
 Let's try!
  
 We will use the **presidential** data set.
+
 *It contains data of the terms of* ***presidents of the USA***, *from Eisenhower to Obama:*
 
 * Name
@@ -1364,15 +1408,14 @@ arrange(presidential,
 The **{magritrrr}** package introduced the **forward-pipe operator**
 
 &lt;img src="https://magrittr.tidyverse.org/logo.png" width="30%" style="display: block; margin: auto;" /&gt;
-  
-Allows to process the output of a function as the input of the following function.
+
 
 ---
 
 ## magritrrr
 ### %&gt;% : forward-pipe operator
 
-Basic piping: read ***from left to right***
+Basic piping: read ***from left to right***: pipes the output of a function forward as the **first argument of the next function**.
 
 --
 
@@ -1424,12 +1467,22 @@ mutate(presidential, duration_days=end-start) %&gt;%
 ## 1 2045.4 days
 ```
 
+--
+
+
+```r
+# same as
+presidential %&gt;% mutate(duration_days=end-start) %&gt;%
+    filter(party == "Democratic") %&gt;%
+    summarise(mean(duration_days))
+```
+
 ---
 
 ## magritrrr
 ### %&gt;% : forward-pipe operator
 
-Example:
+Another example:
 
 
 ```r
@@ -1489,7 +1542,7 @@ We will work with the **storms** data set:
   * Calculate the **median pressure for each storm status**.
 
 2. Calculate the **minimum wind speed for each storm (name)**.
-  * What storm has the minimum wind speed?
+  * What storm has the smallest minimum wind speed?
 
 3. Calculate **how many storms happened each year**.
   * *TIP: find what* ***distinct()*** *from* ***{dplyr}*** can do...
@@ -1550,6 +1603,23 @@ storms %&gt;%
   summarise(min_wind = min(wind))
 ```
 
+```
+## # A tibble: 198 x 2
+##    name     min_wind
+##    &lt;chr&gt;       &lt;int&gt;
+##  1 AL011993       25
+##  2 AL012000       25
+##  3 AL021992       25
+##  4 AL021994       15
+##  5 AL021999       25
+##  6 AL022000       25
+##  7 AL022001       25
+##  8 AL022003       30
+##  9 AL022006       30
+## 10 AL031987       10
+## # … with 188 more rows
+```
+
 ---
 
 ## dplyr &amp; %&gt;%
@@ -1561,27 +1631,24 @@ Calculate the **minimum wind speed for each storm (name)**.
 
 ```r
 # sort by increasing minimum wind speed
+# introducing top_n: display n number of rows
 storms %&gt;%
   group_by(name) %&gt;%
   summarise(min_wind = min(wind)) %&gt;%
-  arrange(min_wind)
+  arrange(min_wind) %&gt;%
+  top_n(2)
 ```
 
 ```
-## # A tibble: 198 x 2
-##    name      min_wind
-##    &lt;chr&gt;        &lt;int&gt;
-##  1 AL031987        10
-##  2 Alberto         10
-##  3 Bonnie          10
-##  4 AL021994        15
-##  5 AL072003        15
-##  6 Allison         15
-##  7 Barry           15
-##  8 Beryl           15
-##  9 Claudette       15
-## 10 Fay             15
-## # … with 188 more rows
+## Selecting by min_wind
+```
+
+```
+## # A tibble: 2 x 2
+##   name  min_wind
+##   &lt;chr&gt;    &lt;int&gt;
+## 1 Sean        40
+## 2 Doris       45
 ```
 
 ---
@@ -1626,24 +1693,22 @@ distinct(storms, name, year) %&gt;%
 distinct(storms, name, year) %&gt;%
   group_by(year) %&gt;%
   summarise(storms_per_year=n()) %&gt;%
-  arrange(desc(storms_per_year))
+  arrange(desc(storms_per_year)) %&gt;%
+  top_n(4)
 ```
 
 ```
-## # A tibble: 41 x 2
-##     year storms_per_year
-##    &lt;dbl&gt;           &lt;int&gt;
-##  1  1995              21
-##  2  2005              21
-##  3  2003              20
-##  4  2010              20
-##  5  2001              17
-##  6  2012              17
-##  7  2000              16
-##  8  2007              16
-##  9  2011              15
-## 10  2008              14
-## # … with 31 more rows
+## Selecting by storms_per_year
+```
+
+```
+## # A tibble: 4 x 2
+##    year storms_per_year
+##   &lt;dbl&gt;           &lt;int&gt;
+## 1  1995              21
+## 2  2005              21
+## 3  2003              20
+## 4  2010              20
 ```
 
 ---
@@ -1651,7 +1716,7 @@ distinct(storms, name, year) %&gt;%
 ## ggplot2
 ### Visualization
 
-As Mireia said in October: **build plots one layer at a time!** (separated with **+**)
+As Mireia said in October's [ggplot2 workshop](https://mireia-bioinfo.github.io/workshop_ggplot2/index.html): **build plots one layer at a time!** (separated with **+**)
   * Data
   * Aesthetics
   * Geometries
@@ -1664,7 +1729,7 @@ ggplot(storms, aes(x=wind, y=pressure)) +
     geom_point()
 ```
 
-![](101112_rladies_tidyverse_files/figure-html/unnamed-chunk-49-1.png)&lt;!-- --&gt;
+![](101112_rladies_tidyverse_files/figure-html/unnamed-chunk-52-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -1717,13 +1782,16 @@ storms %&gt;%
     ggtitle("Storms: wind vs pressure")
 ```
 
-![](101112_rladies_tidyverse_files/figure-html/unnamed-chunk-51-1.png)&lt;!-- --&gt;
+![](101112_rladies_tidyverse_files/figure-html/unnamed-chunk-54-1.png)&lt;!-- --&gt;
 
 ---
 
 class: inverse, center, middle
 
 # THANK YOU !
+
+--
+*slides created with the [xaringan package](https://github.com/yihui/xaringan)*
 
 --
 
@@ -1733,12 +1801,25 @@ Follow us on Twitter ! @RLadiesBCN
 
 
 ---
+# Some resources
+
+* [Tidyverse website](https://www.tidyverse.org/)
+
+* [R Studio cheatsheet](https://rstudio.com/resources/cheatsheets/)
+
+* [R for data science](https://r4ds.had.co.nz/)
+
+* [Text mining with R](https://www.tidytextmining.com/)
+
+* [Advanced R](https://adv-r.hadley.nz/)
+
+---
 
 class: inverse
 
 # Let's see what you have learnt today !
 
-&lt;img src="https://media.giphy.com/media/1BgNCE4bMilwje4SBi/giphy.gif" width="50%" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://media.giphy.com/media/1BgNCE4bMilwje4SBi/giphy.gif" width="40%" style="display: block; margin: auto;" /&gt;
 
 Go to:
 
