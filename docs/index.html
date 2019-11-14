@@ -1,0 +1,1855 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>Tiny introduction to the Tidyverse</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Sarah Bonnin" />
+    <meta name="date" content="2019-11-14" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/rladies.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/rladies-fonts.css" rel="stylesheet" />
+    <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Tiny introduction to the Tidyverse
+## <img src="https://www.tidyverse.org/images/hex-tidyverse.png" id="id" class="class" style="width:30.0%;height:30.0%" /><br/>R-ladies BCN
+### Sarah Bonnin
+### 2019-11-14
+
+---
+
+
+## What is the Tidyverse ?
+
+
+--
+
+* A set of packages designed for **data science**:
+
+  * Preparing / cleaning
+  * Wrangling
+  * Visualizing
+
+--
+
+* All packages share **good practices** in terms of: 
+  * philosophy
+  * grammar
+  * data structure.
+
+---
+
+class: inverse, center, middle
+
+## Disclaimer
+
+--
+
+Old R user...
+
+--
+
+But rather new Tidyverse user !
+
+--
+
+* First tutorial on the Tidyverse ...
+
+.center[
+![](https://media.giphy.com/media/26ufq8k6RuyKjmdTW/giphy.gif)
+]
+
+---
+
+## Tidyverse core packages
+
+As of Tidyverse 1.2.0, the following 8 packages are included in the core tidyverse:
+
+--
+  * Data Wrangling and Transformation
+        dplyr
+        tidyr 
+        stringr
+        forcats
+--
+  * Data Import and Management
+        tibble
+        readr 
+--
+  * Functional Programming
+        purrr
+  * Data Visualization and Exploration
+        ggplot2
+
+---
+
+## Tidyverse core packages
+
+### Data Wrangling and Transformation
+
+ &lt;table cellspacing="0" cellpadding="0" style="width:100%"&gt;
+  &lt;tr&gt;
+    &lt;td&gt;&lt;p style="width: 50px;"&gt;&lt;img src="https://dplyr.tidyverse.org/logo.png"&gt;&lt;/p&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;b&gt;dplyr&lt;/b&gt;: Package for data manipulation and exploratory data analysis.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/table&gt;
+  
+--
+
+&lt;table cellspacing="0" cellpadding="0" style="width:100%"&gt;
+  &lt;tr&gt;
+    &lt;td&gt;&lt;p style="width: 50px;"&gt;&lt;img src="https://tidyr.tidyverse.org/logo.png"&gt;&lt;/p&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;/b&gt;tidyr&lt;/b&gt;: Package that aims at creating tidy data. Tidy data describe a standard way of storing data.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/table&gt;
+
+--
+
+ &lt;table cellspacing="0" cellpadding="0" style="width:100%"&gt;
+  &lt;tr&gt;
+    &lt;td&gt;&lt;p style="width: 50px;"&gt;&lt;img src="https://stringr.tidyverse.org/logo.png"&gt;&lt;/p&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;b&gt;stringr&lt;/b&gt;: Package that provides a set of functions for user-friendly string manipulation.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/table&gt;
+  
+--
+
+ &lt;table cellspacing="0" cellpadding="0" style="width:100%"&gt;
+  &lt;tr&gt;
+    &lt;td&gt;&lt;p style="width: 50px;"&gt;&lt;img src="https://forcats.tidyverse.org/logo.png"&gt;&lt;/p&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;b&gt;forcats&lt;/b&gt;: Package that helps you deal with factors.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/table&gt;
+  
+---
+
+## Tidyverse core packages
+### Data Import and Management
+
+ &lt;table cellspacing="0" cellpadding="0" style="width:100%"&gt;
+  &lt;tr&gt;
+    &lt;td&gt;&lt;p style="width: 50px;"&gt;&lt;img src="https://readr.tidyverse.org/logo.png"&gt;&lt;/p&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;b&gt;readr&lt;/b&gt;: Package for fast and efficient import and export of data.
+  &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/table&gt;
+  
+--
+
+ &lt;table cellspacing="0"; cellpadding="0"; style="width:100%"&gt;
+  &lt;tr&gt;
+    &lt;td&gt;&lt;p style="width: 50px;"&gt;&lt;img src="https://ih1.redbubble.net/image.543363717.2207/flat,750x,075,f-pad,750x1000,f8f8f8.jpg"&gt;&lt;/p&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;b&gt;tibble&lt;/b&gt;: Tibbles are improved - easier to manage -  data frames.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/table&gt;
+  
+---
+
+## Tidyverse core packages
+### Functional Programming
+
+ &lt;table cellspacing="0" cellpadding="0" style="width:100%"&gt;
+  &lt;tr&gt;
+    &lt;td&gt;&lt;p style="width: 50px;"&gt;&lt;img src="https://purrr.tidyverse.org/logo.png"&gt;&lt;/p&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;b&gt;purrr&lt;/b&gt;: Package that aims at enhancing R's functional programming toolkit. It provides a set of tools for working with functions and vectors.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/table&gt;
+
+---
+
+## Tidyverse core packages
+### Data visualization and exploration
+
+ &lt;table cellspacing="0" cellpadding="0" style="width:100%"&gt;
+  &lt;tr&gt;
+    &lt;td&gt;&lt;p style="width: 50px;"&gt;&lt;img src="https://ggplot2.tidyverse.org/logo.png"&gt;&lt;/p&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;b&gt;ggplot2&lt;/b&gt;: Package for data vizualization of graphics based on Leland Wilkinson's' &lt;b&gt;G&lt;/b&gt;rammar of &lt;b&gt;G&lt;/b&gt;raphics: graphics are built one layer at a time.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/table&gt;
+  
+---
+
+## Load all tidyverse package
+
+
+```r
+library(tidyverse)
+```
+
+```
+## ── Attaching packages ─────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
+```
+
+```
+## ✔ ggplot2 3.2.1     ✔ purrr   0.3.3
+## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
+## ✔ tidyr   1.0.0     ✔ stringr 1.4.0
+## ✔ readr   1.3.1     ✔ forcats 0.4.0
+```
+
+```
+## ── Conflicts ────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+```
+
+---
+
+## Outline
+
+In the teeny tiny workshop, we will focus on:
+* dplyr (mainly)
+* tidyr
+* tibble
+
+--
+
+And we will see a tiny bit of:
+* stringr
+* ggplot2
+
+---
+
+## tibble
+
+What are **tibbles**?
+
+* Modern re-thinking of data frames.
+
+* Leave behing old user-unfriendly features of data frames.
+
+--
+
+Let's create a simple tibble with **tibble()**:
+
+
+```r
+mytibble &lt;- tibble(
+  letters = LETTERS,
+  numbers = 1:26
+)
+```
+
+---
+
+## tibble
+
+.pull-left[
+
+```
+## # A tibble: 26 x 2
+##    letters numbers
+##    &lt;chr&gt;     &lt;int&gt;
+##  1 A             1
+##  2 B             2
+##  3 C             3
+##  4 D             4
+##  5 E             5
+##  6 F             6
+##  7 G             7
+##  8 H             8
+##  9 I             9
+## 10 J            10
+## # … with 16 more rows
+```
+]
+
+--
+
+.pull-right[
+Why do we like tibbles?
+
+- **Dimensions** shown.
+
+- Information about **data types**.
+
+- **No character to factor conversion**.
+
+- No automatic change of column names.
+
+- Only the first rows are displayed.
+]
+
+---
+
+## tibble
+
+Print the first 15 rows:
+
+
+```r
+*print(mytibble, n=15)
+```
+
+```
+## # A tibble: 26 x 2
+##    letters numbers
+##    &lt;chr&gt;     &lt;int&gt;
+##  1 A             1
+##  2 B             2
+##  3 C             3
+##  4 D             4
+##  5 E             5
+##  6 F             6
+##  7 G             7
+##  8 H             8
+##  9 I             9
+## 10 J            10
+## 11 K            11
+## 12 L            12
+## 13 M            13
+## 14 N            14
+## 15 O            15
+## # … with 11 more rows
+```
+
+---
+
+## tibble
+
+Print all rows:
+
+
+```r
+*print(mytibble, n=Inf)
+```
+
+```
+## # A tibble: 26 x 2
+##    letters numbers
+##    &lt;chr&gt;     &lt;int&gt;
+##  1 A             1
+##  2 B             2
+##  3 C             3
+##  4 D             4
+##  5 E             5
+##  6 F             6
+##  7 G             7
+##  8 H             8
+##  9 I             9
+## 10 J            10
+## 11 K            11
+## 12 L            12
+## 13 M            13
+## 14 N            14
+## 15 O            15
+## 16 P            16
+## 17 Q            17
+## 18 R            18
+## 19 S            19
+## 20 T            20
+## 21 U            21
+## 22 V            22
+## 23 W            23
+## 24 X            24
+## 25 Y            25
+## 26 Z            26
+```
+
+---
+
+## tidyr
+### Tidy data
+
+The goal of **{tidyr}** is to help you create **tidy data**. 
+&lt;br&gt;
+Tidy data is data where:
+
+--
+
+- Each **column** describes a **variable**.
+
+--
+
+- Each **row** describes an **observation**.
+
+--
+
+- Each **value** is a **cell**.
+
+---
+
+## tidyr
+### separate &amp; unite
+
+* **separate()**: separate a column into 2 (or more)
+  * separate(tibble, col, into, sep)
+
+--
+
+* **unite()**: does just the opposite!
+  * unite(tibble, col, *columns*, sep)
+
+--
+
+Let's practice on the **table5** data set:
+
+
+```r
+table5
+```
+
+```
+## # A tibble: 6 x 4
+##   country     century year  rate             
+## * &lt;chr&gt;       &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;            
+## 1 Afghanistan 19      99    745/19987071     
+## 2 Afghanistan 20      00    2666/20595360    
+## 3 Brazil      19      99    37737/172006362  
+## 4 Brazil      20      00    80488/174504898  
+## 5 China       19      99    212258/1272915272
+## 6 China       20      00    213766/1280428583
+```
+---
+
+## tidyr
+### separate &amp; unite
+
+* **Separate** column **rate** into 2: 
+  * **cases** and **population**
+
+* **Unite** columns **century** and **year** into 1:
+  * **year**: **1999** instead of **19** and **99**
+
+---
+
+## tidyr
+### separate &amp; unite
+
+
+```r
+# separate column "rate"
+table5a &lt;- separate(table5, 
+         col=rate, 
+         into=c("cases", "population"),
+         sep="/"
+         )
+
+table5a
+```
+
+```
+## # A tibble: 6 x 5
+##   country     century year  cases  population
+##   &lt;chr&gt;       &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;     
+## 1 Afghanistan 19      99    745    19987071  
+## 2 Afghanistan 20      00    2666   20595360  
+## 3 Brazil      19      99    37737  172006362 
+## 4 Brazil      20      00    80488  174504898 
+## 5 China       19      99    212258 1272915272
+## 6 China       20      00    213766 1280428583
+```
+
+---
+
+## tidyr
+### separate &amp; unite
+
+
+```r
+# unite columns "century" and "year"
+table5b &lt;- unite(table5a,
+                col=year,
+                c("century", "year"), 
+                sep="")
+
+table5b
+```
+
+```
+## # A tibble: 6 x 4
+##   country     year  cases  population
+##   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;     
+## 1 Afghanistan 1999  745    19987071  
+## 2 Afghanistan 2000  2666   20595360  
+## 3 Brazil      1999  37737  172006362 
+## 4 Brazil      2000  80488  174504898 
+## 5 China       1999  212258 1272915272
+## 6 China       2000  213766 1280428583
+```
+
+---
+
+## tidyr
+### Tidy data
+
+Practice a bit more: let's create a toy **untidy tibble**:
+
+
+```r
+patients &lt;- tibble(
+  names  = c("A", "B", "C", "D"),
+  age  = c( 21,   32,     25,    43),
+  c("188cm/93kg", "167cm/55kg", "155cm/51kg", "175cm/72kg")
+)
+```
+
+---
+
+## tidyr
+### Tidy data
+
+
+```
+## # A tibble: 4 x 3
+##   names   age `c("188cm/93kg", "167cm/55kg", "155cm/51kg", "175cm/72kg")`
+##   &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;                                                      
+## 1 A        21 188cm/93kg                                                 
+## 2 B        32 167cm/55kg                                                 
+## 3 C        25 155cm/51kg                                                 
+## 4 D        43 175cm/72kg
+```
+
+What is wrong here ?
+
+--
+
+**2 variables in the third column !**
+
+--
+
+* Split the column with **separate()**:
+
+--
+
+
+```r
+# data: tibble/data frame
+# col: column to separate
+# sep: character to use to split the column
+# into: names of the columns that are created after separation
+patients &lt;- separate(data=patients, 
+                      col=3, 
+                      sep="/", 
+                      into=c("height", "weight"))
+```
+
+---
+
+## tidyr
+### Tidy data
+
+Anything else wrong with **patients** now ?
+
+
+```
+## # A tibble: 4 x 4
+##   names   age height weight
+##   &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; 
+## 1 A        21 188cm  93kg  
+## 2 B        32 167cm  55kg  
+## 3 C        25 155cm  51kg  
+## 4 D        43 175cm  72kg
+```
+
+--
+
+**Extra characters in the height and weight columns!**
+
+--
+
+* Remove "cm" and "kg" !
+
+--
+
+* Here we introduce the **str_remove()** function from the **{stringr}** package
+
+
+```r
+patients$height &lt;- str_remove(patients$height, "cm")
+patients$weight &lt;- str_remove(patients$weight, "kg")
+```
+
+---
+
+## tidyr
+### Tidy data
+
+Is there still a problem ?
+
+
+```
+## # A tibble: 4 x 4
+##   names   age height weight
+##   &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; 
+## 1 A        21 188    93    
+## 2 B        32 167    55    
+## 3 C        25 155    51    
+## 4 D        43 175    72
+```
+
+--
+
+**Columns **height** and **weight** are treated as characters !**
+
+--
+
+* We need to convert them to numeric.
+
+--
+
+* Here we introduce **mutate_at()** from the **{dplyr}** package:
+
+
+```r
+# first argument: the tibble
+# second argument: a vector of column names to mutate
+# third argument: how to mutate those columns
+patients &lt;- mutate_at(patients, c("height", "weight"), as.numeric)
+```
+
+---
+
+## tidyr
+### Tidy data
+
+**patients** is now tidy !
+
+
+```
+## # A tibble: 4 x 4
+##   names   age height weight
+##   &lt;chr&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+## 1 A        21    188     93
+## 2 B        32    167     55
+## 3 C        25    155     51
+## 4 D        43    175     72
+```
+
+---
+
+## dplyr
+   
+Introduces a grammar of data manipulation. [Cheat sheet](https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf)
+ 
+--
+ 
+We will introduce the **5 intuitively-named key functions** from **{dplyr}**:
+
+--
+
+ * **mutate()** adds new variables (columns) that are functions of existing variables
+ 
+--
+ 
+ * **select()** picks variables (columns) based on their names.
+ 
+--
+ 
+ * **filter()** picks observations (rows) based on their values.
+ 
+--
+ 
+ * **summarise()** collapses multiple values down to a single summary.
+ 
+--
+ 
+ * **arrange()** changes the ordering of the rows.
+ 
+---
+
+## dplyr
+ 
+All 5 functions work in a similar and consistent way:
+
+--
+
+* The first argument is a **data frame** or a **tibble**.
+
+--
+
+* The result is a new data frame.
+ 
+ &gt; *Note that {dplyr} never modifies the input: you need to* ***redirect the output*** *and save in a new - or the same - object.*
+
+---
+
+## dplyr
+
+Let's try!
+ 
+We will use the **presidential** data set.
+*It contains data of the terms of* ***presidents of the USA***, *from Eisenhower to Obama:*
+
+* Name
+
+* Term starting date
+
+* Term ending date of mandate
+
+* Political party
+ 
+--
+
+
+```r
+print(presidential, n=6)
+```
+
+```
+## # A tibble: 11 x 4
+##   name       start      end        party     
+##   &lt;chr&gt;      &lt;date&gt;     &lt;date&gt;     &lt;chr&gt;     
+## 1 Eisenhower 1953-01-20 1961-01-20 Republican
+## 2 Kennedy    1961-01-20 1963-11-22 Democratic
+## 3 Johnson    1963-11-22 1969-01-20 Democratic
+## 4 Nixon      1969-01-20 1974-08-09 Republican
+## 5 Ford       1974-08-09 1977-01-20 Republican
+## 6 Carter     1977-01-20 1981-01-20 Democratic
+## # … with 5 more rows
+```
+
+---
+
+## dplyr
+### mutate &amp; transmute
+
+**mutate()** allows to create new columns that are functions of the existing ones.
+
+--
+
+* Create a new column with the duration of each term:
+
+--
+
+
+```r
+# Subtracting column start to colum end
+mutate(presidential, 
+*   duration_days=end - start)
+```
+
+```
+## # A tibble: 11 x 5
+##    name       start      end        party      duration_days
+##    &lt;chr&gt;      &lt;date&gt;     &lt;date&gt;     &lt;chr&gt;      &lt;drtn&gt;       
+##  1 Eisenhower 1953-01-20 1961-01-20 Republican 2922 days    
+##  2 Kennedy    1961-01-20 1963-11-22 Democratic 1036 days    
+##  3 Johnson    1963-11-22 1969-01-20 Democratic 1886 days    
+##  4 Nixon      1969-01-20 1974-08-09 Republican 2027 days    
+##  5 Ford       1974-08-09 1977-01-20 Republican  895 days    
+##  6 Carter     1977-01-20 1981-01-20 Democratic 1461 days    
+##  7 Reagan     1981-01-20 1989-01-20 Republican 2922 days    
+##  8 Bush       1989-01-20 1993-01-20 Republican 1461 days    
+##  9 Clinton    1993-01-20 2001-01-20 Democratic 2922 days    
+## 10 Bush       2001-01-20 2009-01-20 Republican 2922 days    
+## 11 Obama      2009-01-20 2017-01-20 Democratic 2922 days
+```
+
+---
+
+## dplyr
+### mutate &amp; transmute
+
+&gt; Use **unquoted** column names
+
+--
+
+&gt; Note that columns are added at the end of the data frame.
+
+--
+
+&gt; Note that **mutate** keeps all columns. 
+
+---
+
+## dplyr
+### mutate &amp; transmute
+
+Keep only the **newly created column(s)** (drop the remaining ones) with **transmute()** instead of **mutate()**:
+
+--
+
+
+```r
+transmute(presidential, 
+*   duration_days=end - start)
+```
+
+```
+## # A tibble: 11 x 1
+##    duration_days
+##    &lt;drtn&gt;       
+##  1 2922 days    
+##  2 1036 days    
+##  3 1886 days    
+##  4 2027 days    
+##  5  895 days    
+##  6 1461 days    
+##  7 2922 days    
+##  8 1461 days    
+##  9 2922 days    
+## 10 2922 days    
+## 11 2922 days
+```
+
+---
+
+## dplyr
+### mutate &amp; transmute
+
+Re-assign to a new - or the same - data frame/tibble using the R **assignment operator: &lt;-**
+
+
+```r
+presidential &lt;- mutate(presidential, 
+                duration_days=end - start)
+```
+ 
+---
+
+## dplyr
+### select
+
+Select column **name** only:
+
+&lt;table class="table table-striped" style="font-size: 14px; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; name &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; start &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; end &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; party &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; duration_days &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;background-color: yellow !important;"&gt; Eisenhower &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1953-01-20 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1961-01-20 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Republican &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2922 days &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;background-color: yellow !important;"&gt; Kennedy &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1961-01-20 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1963-11-22 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Democratic &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1036 days &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;background-color: yellow !important;"&gt; Johnson &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1963-11-22 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1969-01-20 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Democratic &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1886 days &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;background-color: yellow !important;"&gt; Nixon &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1969-01-20 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1974-08-09 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Republican &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2027 days &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;background-color: yellow !important;"&gt; Ford &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1974-08-09 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1977-01-20 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Republican &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 895 days &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;background-color: yellow !important;"&gt; Carter &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1977-01-20 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1981-01-20 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Democratic &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1461 days &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;background-color: yellow !important;"&gt; Reagan &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1981-01-20 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1989-01-20 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Republican &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2922 days &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;background-color: yellow !important;"&gt; Bush &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1989-01-20 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1993-01-20 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Republican &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1461 days &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;background-color: yellow !important;"&gt; Clinton &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1993-01-20 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2001-01-20 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Democratic &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2922 days &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;background-color: yellow !important;"&gt; Bush &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2001-01-20 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2009-01-20 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Republican &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2922 days &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;background-color: yellow !important;"&gt; Obama &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2009-01-20 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2017-01-20 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Democratic &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2922 days &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+## dplyr
+### select
+
+
+```r
+select(presidential, name)
+```
+
+```
+## # A tibble: 11 x 1
+##    name      
+##    &lt;chr&gt;     
+##  1 Eisenhower
+##  2 Kennedy   
+##  3 Johnson   
+##  4 Nixon     
+##  5 Ford      
+##  6 Carter    
+##  7 Reagan    
+##  8 Bush      
+##  9 Clinton   
+## 10 Bush      
+## 11 Obama
+```
+ 
+---
+
+## dplyr
+### select
+
+Select columns **party** and **name** (in that order):
+
+```r
+select(presidential, 
+*      party, name)
+```
+
+```
+## # A tibble: 11 x 2
+##    party      name      
+##    &lt;chr&gt;      &lt;chr&gt;     
+##  1 Republican Eisenhower
+##  2 Democratic Kennedy   
+##  3 Democratic Johnson   
+##  4 Republican Nixon     
+##  5 Republican Ford      
+##  6 Democratic Carter    
+##  7 Republican Reagan    
+##  8 Republican Bush      
+##  9 Democratic Clinton   
+## 10 Republican Bush      
+## 11 Democratic Obama
+```
+
+---
+
+## dplyr
+### select
+
+Rename a column as you select it:
+
+```r
+select(presidential, 
+*      party, President=name)
+```
+
+```
+## # A tibble: 11 x 2
+##    party      President 
+##    &lt;chr&gt;      &lt;chr&gt;     
+##  1 Republican Eisenhower
+##  2 Democratic Kennedy   
+##  3 Democratic Johnson   
+##  4 Republican Nixon     
+##  5 Republican Ford      
+##  6 Democratic Carter    
+##  7 Republican Reagan    
+##  8 Republican Bush      
+##  9 Democratic Clinton   
+## 10 Republican Bush      
+## 11 Democratic Obama
+```
+
+---
+
+## dplyr
+### select
+
+Select all columns **except** party:
+
+```r
+select(presidential, 
+*      -party)
+```
+
+```
+## # A tibble: 11 x 4
+##    name       start      end        duration_days
+##    &lt;chr&gt;      &lt;date&gt;     &lt;date&gt;     &lt;drtn&gt;       
+##  1 Eisenhower 1953-01-20 1961-01-20 2922 days    
+##  2 Kennedy    1961-01-20 1963-11-22 1036 days    
+##  3 Johnson    1963-11-22 1969-01-20 1886 days    
+##  4 Nixon      1969-01-20 1974-08-09 2027 days    
+##  5 Ford       1974-08-09 1977-01-20  895 days    
+##  6 Carter     1977-01-20 1981-01-20 1461 days    
+##  7 Reagan     1981-01-20 1989-01-20 2922 days    
+##  8 Bush       1989-01-20 1993-01-20 1461 days    
+##  9 Clinton    1993-01-20 2001-01-20 2922 days    
+## 10 Bush       2001-01-20 2009-01-20 2922 days    
+## 11 Obama      2009-01-20 2017-01-20 2922 days
+```
+
+---
+
+## dplyr
+### select
+
+Select all columns between **start** and **party** (inclusive)
+
+```r
+ select(presidential, 
+*       start:party)
+```
+
+```
+## # A tibble: 11 x 3
+##    start      end        party     
+##    &lt;date&gt;     &lt;date&gt;     &lt;chr&gt;     
+##  1 1953-01-20 1961-01-20 Republican
+##  2 1961-01-20 1963-11-22 Democratic
+##  3 1963-11-22 1969-01-20 Democratic
+##  4 1969-01-20 1974-08-09 Republican
+##  5 1974-08-09 1977-01-20 Republican
+##  6 1977-01-20 1981-01-20 Democratic
+##  7 1981-01-20 1989-01-20 Republican
+##  8 1989-01-20 1993-01-20 Republican
+##  9 1993-01-20 2001-01-20 Democratic
+## 10 2001-01-20 2009-01-20 Republican
+## 11 2009-01-20 2017-01-20 Democratic
+```
+
+---
+
+## dplyr
+### select_if
+
+Select only columns containing characters with **select_if()**:
+
+```r
+select_if(presidential, 
+*   is.character)
+```
+
+```
+## # A tibble: 11 x 2
+##    name       party     
+##    &lt;chr&gt;      &lt;chr&gt;     
+##  1 Eisenhower Republican
+##  2 Kennedy    Democratic
+##  3 Johnson    Democratic
+##  4 Nixon      Republican
+##  5 Ford       Republican
+##  6 Carter     Democratic
+##  7 Reagan     Republican
+##  8 Bush       Republican
+##  9 Clinton    Democratic
+## 10 Bush       Republican
+## 11 Obama      Democratic
+```
+
+
+ 
+
+---
+
+## dplyr
+### filter
+
+**filter()** is used to filter rows in a data frame/tibble.
+
+Keep rows if party is **Democratic**:
+
+&lt;table class="table table-striped" style="font-size: 14px; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; name &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; start &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; end &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; party &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; duration_days &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Eisenhower &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1953-01-20 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1961-01-20 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Republican &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2922 days &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;background-color: yellow !important;"&gt; Kennedy &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: yellow !important;"&gt; 1961-01-20 &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: yellow !important;"&gt; 1963-11-22 &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: yellow !important;"&gt; Democratic &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: yellow !important;"&gt; 1036 days &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;background-color: yellow !important;"&gt; Johnson &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: yellow !important;"&gt; 1963-11-22 &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: yellow !important;"&gt; 1969-01-20 &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: yellow !important;"&gt; Democratic &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: yellow !important;"&gt; 1886 days &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Nixon &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1969-01-20 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1974-08-09 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Republican &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2027 days &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Ford &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1974-08-09 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1977-01-20 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Republican &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 895 days &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;background-color: yellow !important;"&gt; Carter &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: yellow !important;"&gt; 1977-01-20 &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: yellow !important;"&gt; 1981-01-20 &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: yellow !important;"&gt; Democratic &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: yellow !important;"&gt; 1461 days &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Reagan &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1981-01-20 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1989-01-20 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Republican &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2922 days &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Bush &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1989-01-20 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1993-01-20 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Republican &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1461 days &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;background-color: yellow !important;"&gt; Clinton &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: yellow !important;"&gt; 1993-01-20 &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: yellow !important;"&gt; 2001-01-20 &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: yellow !important;"&gt; Democratic &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: yellow !important;"&gt; 2922 days &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Bush &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2001-01-20 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2009-01-20 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Republican &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2922 days &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;background-color: yellow !important;"&gt; Obama &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: yellow !important;"&gt; 2009-01-20 &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: yellow !important;"&gt; 2017-01-20 &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: yellow !important;"&gt; Democratic &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: yellow !important;"&gt; 2922 days &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+## dplyr
+### filter
+
+Keep rows if party is **Democratic**:
+
+```r
+ filter(presidential, 
+*       party=="Democratic")
+```
+
+```
+## # A tibble: 5 x 5
+##   name    start      end        party      duration_days
+##   &lt;chr&gt;   &lt;date&gt;     &lt;date&gt;     &lt;chr&gt;      &lt;drtn&gt;       
+## 1 Kennedy 1961-01-20 1963-11-22 Democratic 1036 days    
+## 2 Johnson 1963-11-22 1969-01-20 Democratic 1886 days    
+## 3 Carter  1977-01-20 1981-01-20 Democratic 1461 days    
+## 4 Clinton 1993-01-20 2001-01-20 Democratic 2922 days    
+## 5 Obama   2009-01-20 2017-01-20 Democratic 2922 days
+```
+
+---
+
+## dplyr
+### filter
+
+You can filter using several variables/columns:
+
+```r
+filter(presidential, 
+*      party=="Republican", name=="Bush")
+
+# This implicity uses the "&amp;", i.e. the fact that both conditions have to be TRUE
+filter(presidential, 
+*      party=="Republican" &amp; name=="Bush")
+
+# Any logical operators can be used
+filter(presidential, 
+*      name %in% c("Bush", "Kennedy"))
+```
+
+---
+
+## dplyr
+### summarise &amp; group_by
+ 
+**summarise()** collapses a data frame to a single row (base R: **aggregate()**)
+ 
+--
+ 
+Get average length of terms:
+
+
+```r
+summarise(presidential, 
+*         mean(duration_days))
+```
+
+```
+## # A tibble: 1 x 1
+##   `mean(duration_days)`
+##   &lt;drtn&gt;               
+## 1 2125.091 days
+```
+
+---
+
+## dplyr
+### summarise &amp; group_by
+ 
+**summarise()** collapses a data frame to a single row (base R: **aggregate()**)
+
+Get average length of terms + count
+
+
+```r
+summarise(presidential,
+          mean(duration_days), 
+*         n())
+```
+
+```
+## # A tibble: 1 x 2
+##   `mean(duration_days)` `n()`
+##   &lt;drtn&gt;                &lt;int&gt;
+## 1 2125.091 days            11
+```
+
+---
+
+## dplyr
+### summarise &amp; group_by
+ 
+You can combine **summarise()** with **group_by()** to get the average length of terms **per political party**:
+
+--
+
+* **group_by()** defines a grouping based on existing variables.
+
+--
+
+* **summarise()** then processes the command based on the grouping
+
+--
+
+
+```r
+*groups &lt;- group_by(presidential,
+*                  party)
+summarise(groups, 
+          mean(duration_days), n())
+```
+
+```
+## # A tibble: 2 x 3
+##   party      `mean(duration_days)` `n()`
+##   &lt;chr&gt;      &lt;drtn&gt;                &lt;int&gt;
+## 1 Democratic 2045.4 days               5
+## 2 Republican 2191.5 days               6
+```
+
+---
+
+## dplyr
+### arrange
+
+Order rows by increasing mandate duration with **arrange()**
+
+```r
+arrange(presidential, duration_days)
+```
+
+```
+## # A tibble: 11 x 5
+##    name       start      end        party      duration_days
+##    &lt;chr&gt;      &lt;date&gt;     &lt;date&gt;     &lt;chr&gt;      &lt;drtn&gt;       
+##  1 Ford       1974-08-09 1977-01-20 Republican  895 days    
+##  2 Kennedy    1961-01-20 1963-11-22 Democratic 1036 days    
+##  3 Carter     1977-01-20 1981-01-20 Democratic 1461 days    
+##  4 Bush       1989-01-20 1993-01-20 Republican 1461 days    
+##  5 Johnson    1963-11-22 1969-01-20 Democratic 1886 days    
+##  6 Nixon      1969-01-20 1974-08-09 Republican 2027 days    
+##  7 Eisenhower 1953-01-20 1961-01-20 Republican 2922 days    
+##  8 Reagan     1981-01-20 1989-01-20 Republican 2922 days    
+##  9 Clinton    1993-01-20 2001-01-20 Democratic 2922 days    
+## 10 Bush       2001-01-20 2009-01-20 Republican 2922 days    
+## 11 Obama      2009-01-20 2017-01-20 Democratic 2922 days
+```
+
+```r
+# decreasing order: arrange(presidential2, desc(duration_days))
+```
+
+---
+
+## dplyr
+### arrange
+
+You can use several columns for the sorting
+
+```r
+arrange(presidential, 
+        duration_days, name)
+```
+
+```
+## # A tibble: 11 x 5
+##    name       start      end        party      duration_days
+##    &lt;chr&gt;      &lt;date&gt;     &lt;date&gt;     &lt;chr&gt;      &lt;drtn&gt;       
+##  1 Ford       1974-08-09 1977-01-20 Republican  895 days    
+##  2 Kennedy    1961-01-20 1963-11-22 Democratic 1036 days    
+##  3 Bush       1989-01-20 1993-01-20 Republican 1461 days    
+##  4 Carter     1977-01-20 1981-01-20 Democratic 1461 days    
+##  5 Johnson    1963-11-22 1969-01-20 Democratic 1886 days    
+##  6 Nixon      1969-01-20 1974-08-09 Republican 2027 days    
+##  7 Bush       2001-01-20 2009-01-20 Republican 2922 days    
+##  8 Clinton    1993-01-20 2001-01-20 Democratic 2922 days    
+##  9 Eisenhower 1953-01-20 1961-01-20 Republican 2922 days    
+## 10 Obama      2009-01-20 2017-01-20 Democratic 2922 days    
+## 11 Reagan     1981-01-20 1989-01-20 Republican 2922 days
+```
+
+---
+
+## magritrrr
+### %&gt;% : forward-pipe operator
+
+The **{magritrrr}** package introduced the **forward-pipe operator**
+
+&lt;img src="https://magrittr.tidyverse.org/logo.png" width="30%" style="display: block; margin: auto;" /&gt;
+  
+Allows to process the output of a function as the input of the following function.
+
+---
+
+## magritrrr
+### %&gt;% : forward-pipe operator
+
+Basic piping: read ***from left to right***
+
+--
+
+* **mytibble %&gt;% function1** is equivalent to **function1(x)**
+
+--
+
+* **mytibble %&gt;% function1(y)** is equivalent to **function1(x, y)**
+
+--
+
+* **mytibble %&gt;% function1 %&gt;% function2** is equivalent to **function2(function1(x))**
+
+--
+
+Example:
+
+
+```r
+mutate(presidential, duration_days=end-start) %&gt;%
+    filter(duration_days &lt; 1000)
+```
+
+```
+## # A tibble: 1 x 5
+##   name  start      end        party      duration_days
+##   &lt;chr&gt; &lt;date&gt;     &lt;date&gt;     &lt;chr&gt;      &lt;drtn&gt;       
+## 1 Ford  1974-08-09 1977-01-20 Republican 895 days
+```
+
+---
+
+## magritrrr
+### %&gt;% : forward-pipe operator
+
+Example:
+
+
+```r
+mutate(presidential, duration_days=end-start) %&gt;%
+    filter(party == "Democratic") %&gt;%
+    summarise(mean(duration_days))
+```
+
+```
+## # A tibble: 1 x 1
+##   `mean(duration_days)`
+##   &lt;drtn&gt;               
+## 1 2045.4 days
+```
+
+---
+
+## magritrrr
+### %&gt;% : forward-pipe operator
+
+Example:
+
+
+```r
+mutate(presidential, duration_days=end-start) %&gt;%
+    group_by(party) %&gt;%
+    summarise(mean(duration_days))
+```
+
+```
+## # A tibble: 2 x 2
+##   party      `mean(duration_days)`
+##   &lt;chr&gt;      &lt;drtn&gt;               
+## 1 Democratic 2045.4 days          
+## 2 Republican 2191.5 days
+```
+
+---
+
+## dplyr &amp; %&gt;%
+### Hands on !
+
+We will work with the **storms** data set:
+* Positions and attributes of **198 tropical storms**, measured every 6 hours
+
+
+```r
+storms
+```
+
+```
+## # A tibble: 10,010 x 13
+##    name   year month   day  hour   lat  long status category  wind pressure
+##    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;ord&gt;    &lt;int&gt;    &lt;int&gt;
+##  1 Amy    1975     6    27     0  27.5 -79   tropi… -1          25     1013
+##  2 Amy    1975     6    27     6  28.5 -79   tropi… -1          25     1013
+##  3 Amy    1975     6    27    12  29.5 -79   tropi… -1          25     1013
+##  4 Amy    1975     6    27    18  30.5 -79   tropi… -1          25     1013
+##  5 Amy    1975     6    28     0  31.5 -78.8 tropi… -1          25     1012
+##  6 Amy    1975     6    28     6  32.4 -78.7 tropi… -1          25     1012
+##  7 Amy    1975     6    28    12  33.3 -78   tropi… -1          25     1011
+##  8 Amy    1975     6    28    18  34   -77   tropi… -1          30     1006
+##  9 Amy    1975     6    29     0  34.4 -75.8 tropi… 0           35     1004
+## 10 Amy    1975     6    29     6  34   -74.8 tropi… 0           40     1002
+## # … with 10,000 more rows, and 2 more variables: ts_diameter &lt;dbl&gt;,
+## #   hu_diameter &lt;dbl&gt;
+```
+
+---
+
+## dplyr &amp; %&gt;%
+### Hands on !
+
+We will work with the **storms** data set:
+
+
+1. Remove columns **month**, **day**, **hour**, **lat**, **long**, **ts_diameter** and **hu_diameter**.
+  * Calculate the **median pressure for each storm status**.
+
+2. Calculate the **minimum wind speed for each storm (name)**.
+  * What storm has the minimum wind speed?
+
+3. Calculate **how many storms happened each year**.
+  * *TIP: find what* ***distinct()*** *from* ***{dplyr}*** can do...
+  * What are the years with the **maximum** number of storms?
+
+---
+
+## dplyr &amp; %&gt;%
+### Hands on !
+
+Remove columns **month**, **day**, **hour**, **lat**, **long**, **ts_diameter** and **hu_diameter**.
+  * Calculate the **median pressure for each storm status**.
+
+--
+
+
+```r
+# remove columns
+select(storms, -lat, -long, -ts_diameter, -hu_diameter)
+# same as:
+select(storms, -c(lat, long, ts_diameter, hu_diameter))
+```
+
+--
+
+
+```r
+# group by status and calculate median pressure per storm status
+select(storms, -lat, -long, -ts_diameter, -hu_diameter) %&gt;% 
+  group_by(status) %&gt;%
+  summarise(median(pressure))
+```
+
+```
+## # A tibble: 3 x 2
+##   status              `median(pressure)`
+##   &lt;chr&gt;                            &lt;dbl&gt;
+## 1 hurricane                          973
+## 2 tropical depression               1008
+## 3 tropical storm                    1000
+```
+
+---
+
+## dplyr &amp; %&gt;%
+### Hands on !
+
+Calculate the **minimum wind speed for each storm (name)**.
+  * What storm has the **smallest minimum wind speed**?
+
+--
+
+
+```r
+# group storms by name and calculate minimum wind speed
+storms %&gt;%
+  group_by(name) %&gt;%
+  summarise(min_wind = min(wind))
+```
+
+---
+
+## dplyr &amp; %&gt;%
+### Hands on !
+
+Calculate the **minimum wind speed for each storm (name)**.
+  * What storm has the **smallest minimum wind speed**?
+
+
+```r
+# sort by increasing minimum wind speed
+storms %&gt;%
+  group_by(name) %&gt;%
+  summarise(min_wind = min(wind)) %&gt;%
+  arrange(min_wind)
+```
+
+```
+## # A tibble: 198 x 2
+##    name      min_wind
+##    &lt;chr&gt;        &lt;int&gt;
+##  1 AL031987        10
+##  2 Alberto         10
+##  3 Bonnie          10
+##  4 AL021994        15
+##  5 AL072003        15
+##  6 Allison         15
+##  7 Barry           15
+##  8 Beryl           15
+##  9 Claudette       15
+## 10 Fay             15
+## # … with 188 more rows
+```
+
+---
+
+## dplyr &amp; %&gt;%
+### Hands on !
+
+ 3. Calculate **how many storms happened each year**.
+  * *TIP: find what* ***distinct()*** *from* ***{dplyr}*** can do...
+  * What are the years with the **maximum** number of storms?
+
+--
+
+
+```r
+# get unique rows when considering both name and year columns
+distinct(storms, name, year)
+```
+
+--
+
+
+```r
+# group by year and count the number of storms
+distinct(storms, name, year) %&gt;%
+  group_by(year) %&gt;%
+  summarise(storms_per_year=n())
+```
+
+---
+
+## dplyr &amp; %&gt;%
+### Hands on !
+
+ 3. Calculate **how many storms happened each year**.
+  * *TIP: find what* ***distinct()*** *from* ***{dplyr}*** can do...
+  * What are the years with the **maximum** number of storms?
+
+
+```r
+# sort by decreasing number of storms
+distinct(storms, name, year) %&gt;%
+  group_by(year) %&gt;%
+  summarise(storms_per_year=n()) %&gt;%
+  arrange(desc(storms_per_year))
+```
+
+```
+## # A tibble: 41 x 2
+##     year storms_per_year
+##    &lt;dbl&gt;           &lt;int&gt;
+##  1  1995              21
+##  2  2005              21
+##  3  2003              20
+##  4  2010              20
+##  5  2001              17
+##  6  2012              17
+##  7  2000              16
+##  8  2007              16
+##  9  2011              15
+## 10  2008              14
+## # … with 31 more rows
+```
+
+---
+
+## ggplot2
+### Visualization
+
+As Mireia said in October: **build plots one layer at a time!** (separated with **+**)
+  * Data
+  * Aesthetics
+  * Geometries
+
+--
+  
+
+```r
+ggplot(storms, aes(x=wind, y=pressure)) +
+    geom_point()
+```
+
+![](101112_rladies_tidyverse_files/figure-html/unnamed-chunk-49-1.png)&lt;!-- --&gt;
+
+---
+
+## ggplot2
+### Visualization
+
+Combine with the data wrangling / selection with **%&gt;%**:
+
+--
+
+
+```r
+storms %&gt;%
+  filter(name %in% c("Tony", "Paloma", "Zeta", "Luis", "Juliet", "Clara"))
+```
+
+```
+## # A tibble: 161 x 13
+##    name   year month   day  hour   lat  long status category  wind pressure
+##    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;ord&gt;    &lt;int&gt;    &lt;int&gt;
+##  1 Clara  1977     9     5    12  32.8 -80   tropi… -1          20     1015
+##  2 Clara  1977     9     5    18  33.2 -79   tropi… -1          20     1014
+##  3 Clara  1977     9     6     0  33.6 -78.2 tropi… -1          20     1013
+##  4 Clara  1977     9     6     6  33.8 -77.6 tropi… -1          25     1012
+##  5 Clara  1977     9     6    12  34   -77   tropi… -1          25     1011
+##  6 Clara  1977     9     6    18  34.2 -76.4 tropi… -1          25     1010
+##  7 Clara  1977     9     7     0  34.4 -75.8 tropi… -1          30     1010
+##  8 Clara  1977     9     7     6  34.6 -75   tropi… -1          30     1010
+##  9 Clara  1977     9     7    12  34.7 -74.3 tropi… -1          30     1010
+## 10 Clara  1977     9     7    18  34.9 -73   tropi… -1          30     1010
+## # … with 151 more rows, and 2 more variables: ts_diameter &lt;dbl&gt;,
+## #   hu_diameter &lt;dbl&gt;
+```
+
+---
+
+## ggplot2
+### Visualization
+
+Combine with the data wrangling / selection with **%&gt;%**:
+
+
+
+```r
+storms %&gt;%
+  filter(name %in% c("Tony", "Paloma", "Zeta", "Luis", "Juliet", "Clara")) %&gt;%
+  ggplot(aes(x=wind, y=pressure, col=name)) +
+    geom_point() +
+    theme_classic() +
+    ggtitle("Storms: wind vs pressure")
+```
+
+![](101112_rladies_tidyverse_files/figure-html/unnamed-chunk-51-1.png)&lt;!-- --&gt;
+
+---
+
+class: inverse, center, middle
+
+# THANK YOU !
+
+--
+
+Follow us on Twitter ! @RLadiesBCN
+
+&lt;img src="https://media.giphy.com/media/SMKiEh9WDO6ze/giphy.gif" width="55%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+class: inverse
+
+# Let's see what you have learnt today !
+
+&lt;img src="https://media.giphy.com/media/1BgNCE4bMilwje4SBi/giphy.gif" width="50%" style="display: block; margin: auto;" /&gt;
+
+Go to:
+
+#[kahoot.it](https://kahoot.it/)
+
+---
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
