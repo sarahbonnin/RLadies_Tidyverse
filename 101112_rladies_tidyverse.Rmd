@@ -1,8 +1,8 @@
 ---
 title: "Tiny introduction to the Tidyverse"
-subtitle: "![](https://www.tidyverse.org/images/hex-tidyverse.png){#id .class width=40% height=40%}"
-author: "R ladies Barcelona - 2019-11-14 - Sarah Bonnin"
-#date: "last update: `r Sys.Date()`"
+subtitle: "![](https://www.tidyverse.org/images/hex-tidyverse.png){#id .class width=30% height=30%}<br/>R-ladies BCN"
+author: "Sarah Bonnin"
+date: "2019-11-14"
 output:
   xaringan::moon_reader:
     css: ["default", "rladies", "rladies-fonts"]
@@ -176,11 +176,11 @@ library(tidyverse)
 In the teeny tiny workshop, we will focus on:
 * dplyr (mainly)
 * tidyr
+* tibble
 
 --
 
-And we will see a bit of:
-* tibble
+And we will see a tiny bit of:
 * stringr
 * ggplot2
 
@@ -278,8 +278,14 @@ Tidy data is data where:
 ### separate & unite
 
 * **separate()**: separate a column into 2 (or more)
+  * separate(tibble, col, into, sep)
+
+--
 
 * **unite()**: does just the opposite!
+  * unite(tibble, col, *columns*, sep)
+
+--
 
 Let's practice on the **table5** data set:
 
@@ -296,7 +302,6 @@ table5
 
 * **Unite** columns **century** and **year** into 1:
   * **year**: **1999** instead of **19** and **99**
-  * *check ?unite*
 
 ---
 
@@ -306,9 +311,10 @@ table5
 ```{r}
 # separate column "rate"
 table5a <- separate(table5, 
-         rate, 
-         sep="/", 
-         into=c("cases", "population"))
+         col=rate, 
+         into=c("cases", "population"),
+         sep="/"
+         )
 
 table5a
 ```
@@ -321,7 +327,7 @@ table5a
 ```{r}
 # unite columns "century" and "year"
 table5b <- unite(table5a,
-                year,
+                col=year,
                 c("century", "year"), 
                 sep="")
 
@@ -531,7 +537,6 @@ print(presidential, n=6)
 mutate(presidential, 
     duration_days=end - start) #<<
 ```
-> Note that the new column is of the **time** class!
 
 ---
 
@@ -579,7 +584,7 @@ presidential <- mutate(presidential,
 ## dplyr
 ### select
 
-Select column **name** only with:
+Select column **name** only:
 
 ```{r, highlight=c(1,3), echo=F, warning=F,message=F}
 library(kableExtra)
@@ -622,17 +627,6 @@ select(presidential,
 ---
 
 ## dplyr
-### rename
-
-Rename a column without prior selection with **rename**
-```{r, eval=T}
-rename(presidential, 
-       President=name) #<<
-``` 
-
----
-
-## dplyr
 ### select
 
 Select all columns **except** party:
@@ -658,7 +652,7 @@ Select all columns between **start** and **party** (inclusive)
 ### select_if
 
 Select only columns containing characters with **select_if()**:
- ```{r, eval=T}
+```{r, eval=T, echo =T}
 select_if(presidential, 
     is.character) #<<
 ```
@@ -720,7 +714,7 @@ filter(presidential,
 ## dplyr
 ### summarise & group_by
  
-**summarise()** collapses a data frame to a single row (base R: **aggregate**)
+**summarise()** collapses a data frame to a single row (base R: **aggregate()**)
  
 --
  
@@ -736,7 +730,7 @@ summarise(presidential,
 ## dplyr
 ### summarise & group_by
  
-**summarise** collapses a data frame to a single row (base R: **aggregate**)
+**summarise()** collapses a data frame to a single row (base R: **aggregate()**)
 
 Get average length of terms + count
 
@@ -799,8 +793,9 @@ arrange(presidential,
 
 The **{magritrrr}** package introduced the **forward-pipe operator**
 
-<p style="width: 200px;"><img src="https://magrittr.tidyverse.org/logo.png"></p>
-
+```{r, echo=FALSE, out.width="30%", fig.align="center"}
+knitr::include_graphics("https://magrittr.tidyverse.org/logo.png")
+```
   
 Allows to process the output of a function as the input of the following function.
 
@@ -893,7 +888,7 @@ We will work with the **storms** data set:
 ## dplyr & %>%
 ### Hands on !
 
-1. Remove columns **month**, **day**, **hour**, **lat**, **long**, **ts_diameter** and **hu_diameter**.
+Remove columns **month**, **day**, **hour**, **lat**, **long**, **ts_diameter** and **hu_diameter**.
   * Calculate the **median pressure for each storm status**.
 
 --
@@ -919,7 +914,7 @@ select(storms, -lat, -long, -ts_diameter, -hu_diameter) %>%
 ## dplyr & %>%
 ### Hands on !
 
-2. Calculate the **minimum wind speed for each storm (name)**.
+Calculate the **minimum wind speed for each storm (name)**.
   * What storm has the **smallest minimum wind speed**?
 
 --
@@ -931,7 +926,13 @@ storms %>%
   summarise(min_wind = min(wind))
 ```
 
---
+---
+
+## dplyr & %>%
+### Hands on !
+
+Calculate the **minimum wind speed for each storm (name)**.
+  * What storm has the **smallest minimum wind speed**?
 
 ```{r}
 # sort by increasing minimum wind speed
@@ -946,7 +947,7 @@ storms %>%
 ## dplyr & %>%
 ### Hands on !
 
-3. Calculate **how many storms happened each year**.
+ 3. Calculate **how many storms happened each year**.
   * *TIP: find what* ***distinct()*** *from* ***{dplyr}*** can do...
   * What are the years with the **maximum** number of storms?
 
@@ -966,7 +967,14 @@ distinct(storms, name, year) %>%
   summarise(storms_per_year=n())
 ```
 
---
+---
+
+## dplyr & %>%
+### Hands on !
+
+ 3. Calculate **how many storms happened each year**.
+  * *TIP: find what* ***distinct()*** *from* ***{dplyr}*** can do...
+  * What are the years with the **maximum** number of storms?
 
 ```{r}
 # sort by decreasing number of storms
@@ -1004,13 +1012,25 @@ Combine with the data wrangling / selection with **%>%**:
 
 ```{r, fig.height=3.5, eval=T, echo=T}
 storms %>%
+  filter(name %in% c("Tony", "Paloma", "Zeta", "Luis", "Juliet", "Clara"))
+```
+
+---
+
+## ggplot2
+### Visualization
+
+Combine with the data wrangling / selection with **%>%**:
+
+
+```{r, fig.height=3.5, eval=T, echo=T}
+storms %>%
   filter(name %in% c("Tony", "Paloma", "Zeta", "Luis", "Juliet", "Clara")) %>%
   ggplot(aes(x=wind, y=pressure, col=name)) +
     geom_point() +
     theme_classic() +
     ggtitle("Storms: wind vs pressure")
 ```
-
 
 ---
 
@@ -1022,9 +1042,23 @@ class: inverse, center, middle
 
 Follow us on Twitter ! @RLadiesBCN
 
-![](https://media.giphy.com/media/26BRxIdjE82KNmVJm/giphy.gif){width=100px height=100px}
+```{r, echo=FALSE, out.width="55%", fig.align="center"}
+knitr::include_graphics("https://media.giphy.com/media/SMKiEh9WDO6ze/giphy.gif")
+```
 
---
 
-Twitter: @SarahFBonnin
-LinkedIn: https://www.linkedin.com/in/sarahbonnin/
+---
+
+class: inverse
+
+# Let's see what you have learnt today !
+
+```{r, out.width="50%", echo=FALSE, fig.align="center"}
+knitr::include_graphics("https://media.giphy.com/media/1BgNCE4bMilwje4SBi/giphy.gif")
+```
+
+Go to:
+
+#[kahoot.it](https://kahoot.it/)
+
+---

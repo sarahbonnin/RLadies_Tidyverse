@@ -3,7 +3,8 @@
   <head>
     <title>Tiny introduction to the Tidyverse</title>
     <meta charset="utf-8" />
-    <meta name="author" content="R ladies Barcelona - 2019-11-14 - Sarah Bonnin" />
+    <meta name="author" content="Sarah Bonnin" />
+    <meta name="date" content="2019-11-14" />
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/rladies.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/rladies-fonts.css" rel="stylesheet" />
@@ -14,8 +15,9 @@
 class: center, middle, inverse, title-slide
 
 # Tiny introduction to the Tidyverse
-## <img src="https://www.tidyverse.org/images/hex-tidyverse.png" id="id" class="class" style="width:40.0%;height:40.0%" />
-### R ladies Barcelona - 2019-11-14 - Sarah Bonnin
+## <img src="https://www.tidyverse.org/images/hex-tidyverse.png" id="id" class="class" style="width:30.0%;height:30.0%" /><br/>R-ladies BCN
+### Sarah Bonnin
+### 2019-11-14
 
 ---
 
@@ -178,18 +180,18 @@ library(tidyverse)
 ```
 
 ```
-## ── Attaching packages ─────────────────────────────────────────────────────── tidyverse 1.2.1 ──
+## ── Attaching packages ─────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
 ```
 
 ```
-## ✔ ggplot2 3.2.0     ✔ purrr   0.3.2
+## ✔ ggplot2 3.2.1     ✔ purrr   0.3.3
 ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
-## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
+## ✔ tidyr   1.0.0     ✔ stringr 1.4.0
 ## ✔ readr   1.3.1     ✔ forcats 0.4.0
 ```
 
 ```
-## ── Conflicts ────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+## ── Conflicts ────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()
 ```
@@ -201,11 +203,11 @@ library(tidyverse)
 In the teeny tiny workshop, we will focus on:
 * dplyr (mainly)
 * tidyr
+* tibble
 
 --
 
-And we will see a bit of:
-* tibble
+And we will see a tiny bit of:
 * stringr
 * ggplot2
 
@@ -374,8 +376,14 @@ Tidy data is data where:
 ### separate &amp; unite
 
 * **separate()**: separate a column into 2 (or more)
+  * separate(tibble, col, into, sep)
+
+--
 
 * **unite()**: does just the opposite!
+  * unite(tibble, col, *columns*, sep)
+
+--
 
 Let's practice on the **table5** data set:
 
@@ -405,7 +413,6 @@ table5
 
 * **Unite** columns **century** and **year** into 1:
   * **year**: **1999** instead of **19** and **99**
-  * *check ?unite*
 
 ---
 
@@ -416,9 +423,10 @@ table5
 ```r
 # separate column "rate"
 table5a &lt;- separate(table5, 
-         rate, 
-         sep="/", 
-         into=c("cases", "population"))
+         col=rate, 
+         into=c("cases", "population"),
+         sep="/"
+         )
 
 table5a
 ```
@@ -444,7 +452,7 @@ table5a
 ```r
 # unite columns "century" and "year"
 table5b &lt;- unite(table5a,
-                year,
+                col=year,
                 c("century", "year"), 
                 sep="")
 
@@ -730,7 +738,6 @@ mutate(presidential,
 ## 10 Bush       2001-01-20 2009-01-20 Republican 2922 days    
 ## 11 Obama      2009-01-20 2017-01-20 Democratic 2922 days
 ```
-&gt; Note that the new column is of the **time** class!
 
 ---
 
@@ -797,7 +804,7 @@ presidential &lt;- mutate(presidential,
 ## dplyr
 ### select
 
-Select column **name** only with:
+Select column **name** only:
 
 &lt;table class="table table-striped" style="font-size: 14px; margin-left: auto; margin-right: auto;"&gt;
  &lt;thead&gt;
@@ -978,35 +985,6 @@ select(presidential,
 ---
 
 ## dplyr
-### rename
-
-Rename a column without prior selection with **rename**
-
-```r
-rename(presidential, 
-*      President=name)
-```
-
-```
-## # A tibble: 11 x 5
-##    President  start      end        party      duration_days
-##    &lt;chr&gt;      &lt;date&gt;     &lt;date&gt;     &lt;chr&gt;      &lt;drtn&gt;       
-##  1 Eisenhower 1953-01-20 1961-01-20 Republican 2922 days    
-##  2 Kennedy    1961-01-20 1963-11-22 Democratic 1036 days    
-##  3 Johnson    1963-11-22 1969-01-20 Democratic 1886 days    
-##  4 Nixon      1969-01-20 1974-08-09 Republican 2027 days    
-##  5 Ford       1974-08-09 1977-01-20 Republican  895 days    
-##  6 Carter     1977-01-20 1981-01-20 Democratic 1461 days    
-##  7 Reagan     1981-01-20 1989-01-20 Republican 2922 days    
-##  8 Bush       1989-01-20 1993-01-20 Republican 1461 days    
-##  9 Clinton    1993-01-20 2001-01-20 Democratic 2922 days    
-## 10 Bush       2001-01-20 2009-01-20 Republican 2922 days    
-## 11 Obama      2009-01-20 2017-01-20 Democratic 2922 days
-```
-
----
-
-## dplyr
 ### select
 
 Select all columns **except** party:
@@ -1068,28 +1046,28 @@ Select all columns between **start** and **party** (inclusive)
 ### select_if
 
 Select only columns containing characters with **select_if()**:
- 
- ```r
- select_if(presidential, 
- *  is.character)
- ```
- 
- ```
- ## # A tibble: 11 x 2
- ##    name       party     
- ##    &lt;chr&gt;      &lt;chr&gt;     
- ##  1 Eisenhower Republican
- ##  2 Kennedy    Democratic
- ##  3 Johnson    Democratic
- ##  4 Nixon      Republican
- ##  5 Ford       Republican
- ##  6 Carter     Democratic
- ##  7 Reagan     Republican
- ##  8 Bush       Republican
- ##  9 Clinton    Democratic
- ## 10 Bush       Republican
- ## 11 Obama      Democratic
- ```
+
+```r
+select_if(presidential, 
+*   is.character)
+```
+
+```
+## # A tibble: 11 x 2
+##    name       party     
+##    &lt;chr&gt;      &lt;chr&gt;     
+##  1 Eisenhower Republican
+##  2 Kennedy    Democratic
+##  3 Johnson    Democratic
+##  4 Nixon      Republican
+##  5 Ford       Republican
+##  6 Carter     Democratic
+##  7 Reagan     Republican
+##  8 Bush       Republican
+##  9 Clinton    Democratic
+## 10 Bush       Republican
+## 11 Obama      Democratic
+```
 
 
  
@@ -1242,7 +1220,7 @@ filter(presidential,
 ## dplyr
 ### summarise &amp; group_by
  
-**summarise()** collapses a data frame to a single row (base R: **aggregate**)
+**summarise()** collapses a data frame to a single row (base R: **aggregate()**)
  
 --
  
@@ -1266,7 +1244,7 @@ summarise(presidential,
 ## dplyr
 ### summarise &amp; group_by
  
-**summarise** collapses a data frame to a single row (base R: **aggregate**)
+**summarise()** collapses a data frame to a single row (base R: **aggregate()**)
 
 Get average length of terms + count
 
@@ -1385,8 +1363,7 @@ arrange(presidential,
 
 The **{magritrrr}** package introduced the **forward-pipe operator**
 
-&lt;p style="width: 200px;"&gt;&lt;img src="https://magrittr.tidyverse.org/logo.png"&gt;&lt;/p&gt;
-
+&lt;img src="https://magrittr.tidyverse.org/logo.png" width="30%" style="display: block; margin: auto;" /&gt;
   
 Allows to process the output of a function as the input of the following function.
 
@@ -1523,7 +1500,7 @@ We will work with the **storms** data set:
 ## dplyr &amp; %&gt;%
 ### Hands on !
 
-1. Remove columns **month**, **day**, **hour**, **lat**, **long**, **ts_diameter** and **hu_diameter**.
+Remove columns **month**, **day**, **hour**, **lat**, **long**, **ts_diameter** and **hu_diameter**.
   * Calculate the **median pressure for each storm status**.
 
 --
@@ -1560,7 +1537,7 @@ select(storms, -lat, -long, -ts_diameter, -hu_diameter) %&gt;%
 ## dplyr &amp; %&gt;%
 ### Hands on !
 
-2. Calculate the **minimum wind speed for each storm (name)**.
+Calculate the **minimum wind speed for each storm (name)**.
   * What storm has the **smallest minimum wind speed**?
 
 --
@@ -1573,7 +1550,13 @@ storms %&gt;%
   summarise(min_wind = min(wind))
 ```
 
---
+---
+
+## dplyr &amp; %&gt;%
+### Hands on !
+
+Calculate the **minimum wind speed for each storm (name)**.
+  * What storm has the **smallest minimum wind speed**?
 
 
 ```r
@@ -1606,7 +1589,7 @@ storms %&gt;%
 ## dplyr &amp; %&gt;%
 ### Hands on !
 
-3. Calculate **how many storms happened each year**.
+ 3. Calculate **how many storms happened each year**.
   * *TIP: find what* ***distinct()*** *from* ***{dplyr}*** can do...
   * What are the years with the **maximum** number of storms?
 
@@ -1628,7 +1611,14 @@ distinct(storms, name, year) %&gt;%
   summarise(storms_per_year=n())
 ```
 
---
+---
+
+## dplyr &amp; %&gt;%
+### Hands on !
+
+ 3. Calculate **how many storms happened each year**.
+  * *TIP: find what* ***distinct()*** *from* ***{dplyr}*** can do...
+  * What are the years with the **maximum** number of storms?
 
 
 ```r
@@ -1688,6 +1678,38 @@ Combine with the data wrangling / selection with **%&gt;%**:
 
 ```r
 storms %&gt;%
+  filter(name %in% c("Tony", "Paloma", "Zeta", "Luis", "Juliet", "Clara"))
+```
+
+```
+## # A tibble: 161 x 13
+##    name   year month   day  hour   lat  long status category  wind pressure
+##    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;ord&gt;    &lt;int&gt;    &lt;int&gt;
+##  1 Clara  1977     9     5    12  32.8 -80   tropi… -1          20     1015
+##  2 Clara  1977     9     5    18  33.2 -79   tropi… -1          20     1014
+##  3 Clara  1977     9     6     0  33.6 -78.2 tropi… -1          20     1013
+##  4 Clara  1977     9     6     6  33.8 -77.6 tropi… -1          25     1012
+##  5 Clara  1977     9     6    12  34   -77   tropi… -1          25     1011
+##  6 Clara  1977     9     6    18  34.2 -76.4 tropi… -1          25     1010
+##  7 Clara  1977     9     7     0  34.4 -75.8 tropi… -1          30     1010
+##  8 Clara  1977     9     7     6  34.6 -75   tropi… -1          30     1010
+##  9 Clara  1977     9     7    12  34.7 -74.3 tropi… -1          30     1010
+## 10 Clara  1977     9     7    18  34.9 -73   tropi… -1          30     1010
+## # … with 151 more rows, and 2 more variables: ts_diameter &lt;dbl&gt;,
+## #   hu_diameter &lt;dbl&gt;
+```
+
+---
+
+## ggplot2
+### Visualization
+
+Combine with the data wrangling / selection with **%&gt;%**:
+
+
+
+```r
+storms %&gt;%
   filter(name %in% c("Tony", "Paloma", "Zeta", "Luis", "Juliet", "Clara")) %&gt;%
   ggplot(aes(x=wind, y=pressure, col=name)) +
     geom_point() +
@@ -1695,8 +1717,7 @@ storms %&gt;%
     ggtitle("Storms: wind vs pressure")
 ```
 
-![](101112_rladies_tidyverse_files/figure-html/unnamed-chunk-50-1.png)&lt;!-- --&gt;
-
+![](101112_rladies_tidyverse_files/figure-html/unnamed-chunk-51-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -1708,12 +1729,22 @@ class: inverse, center, middle
 
 Follow us on Twitter ! @RLadiesBCN
 
-![](https://media.giphy.com/media/26BRxIdjE82KNmVJm/giphy.gif){width=100px height=100px}
+&lt;img src="https://media.giphy.com/media/SMKiEh9WDO6ze/giphy.gif" width="55%" style="display: block; margin: auto;" /&gt;
 
---
 
-Twitter: @SarahFBonnin
-LinkedIn: https://www.linkedin.com/in/sarahbonnin/
+---
+
+class: inverse
+
+# Let's see what you have learnt today !
+
+&lt;img src="https://media.giphy.com/media/1BgNCE4bMilwje4SBi/giphy.gif" width="50%" style="display: block; margin: auto;" /&gt;
+
+Go to:
+
+#[kahoot.it](https://kahoot.it/)
+
+---
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
@@ -1760,7 +1791,24 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     deleted = true;
   });
-})();</script>
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
 
 <script>
 (function() {
