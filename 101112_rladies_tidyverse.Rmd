@@ -33,6 +33,41 @@ output:
 
 ---
 
+## Why you might want to learn it?
+
+* More **intuitive programming**
+
+--
+
+* Code **easier to read** than with R base
+
+--
+
+* More **efficient**
+
+--
+
+**Tidyverse**
+
+```{r, eval=F}
+diamonds %>% 
+  select(cut, color, carat, price) %>%
+  filter(cut == "Ideal") %>%
+  arrange(desc(price))
+```
+
+
+--
+
+**R base**
+```{r, eval=F}
+diamonds2 <- diamonds[diamonds$cut == "Ideal", 
+                      c("cut", "color", "carat", "price")]
+diamonds2[order(diamonds2$price, decreasing = TRUE),]
+```
+
+---
+
 class: inverse, center, middle
 
 ## Disclaimer
@@ -72,10 +107,13 @@ As of Tidyverse 1.2.0, the following 8 packages are included in the core tidyver
 --
   * Functional Programming
         purrr
+
+--
   * Data Visualization and Exploration
         ggplot2
 
 ---
+class: inverse
 
 ## Tidyverse core packages
 
@@ -116,6 +154,7 @@ As of Tidyverse 1.2.0, the following 8 packages are included in the core tidyver
   </table>
   
 ---
+class: inverse
 
 ## Tidyverse core packages
 ### Data Import and Management
@@ -138,6 +177,7 @@ As of Tidyverse 1.2.0, the following 8 packages are included in the core tidyver
   </table>
   
 ---
+class: inverse
 
 ## Tidyverse core packages
 ### Functional Programming
@@ -150,6 +190,7 @@ As of Tidyverse 1.2.0, the following 8 packages are included in the core tidyver
   </table>
 
 ---
+class: inverse
 
 ## Tidyverse core packages
 ### Data visualization and exploration
@@ -161,14 +202,6 @@ As of Tidyverse 1.2.0, the following 8 packages are included in the core tidyver
     </tr>
   </table>
   
----
-
-## Load all tidyverse package
-
-```{r}
-library(tidyverse)
-```
-
 ---
 
 ## Outline
@@ -183,6 +216,14 @@ In the teeny tiny workshop, we will focus on:
 And we will see a tiny bit of:
 * stringr
 * ggplot2
+
+---
+
+## Load all tidyverse package
+
+```{r}
+library(tidyverse)
+```
 
 ---
 
@@ -283,7 +324,7 @@ Tidy data is data where:
 --
 
 * **unite()**: does just the opposite!
-  * unite(tibble, col, *columns*, sep)
+  * unite(tibble, col, *column names*, sep)
 
 --
 
@@ -494,7 +535,7 @@ All 5 functions work in a similar and consistent way:
 
 * The result is a new data frame.
  
- > *Note that {dplyr} never modifies the input: you need to* ***redirect the output*** *and save in a new - or the same - object.*
+ > *Note that* ***{dplyr}*** *never modifies the input: you need to* ***redirect the output*** *and save in a new - or the same - object.*
 
 ---
 
@@ -503,6 +544,7 @@ All 5 functions work in a similar and consistent way:
 Let's try!
  
 We will use the **presidential** data set.
+
 *It contains data of the terms of* ***presidents of the USA***, *from Eisenhower to Obama:*
 
 * Name
@@ -796,15 +838,14 @@ The **{magritrrr}** package introduced the **forward-pipe operator**
 ```{r, echo=FALSE, out.width="30%", fig.align="center"}
 knitr::include_graphics("https://magrittr.tidyverse.org/logo.png")
 ```
-  
-Allows to process the output of a function as the input of the following function.
+
 
 ---
 
 ## magritrrr
 ### %>% : forward-pipe operator
 
-Basic piping: read ***from left to right***
+Basic piping: read ***from left to right***: pipes the output of a function forward as the **first argument of the next function**.
 
 --
 
@@ -840,12 +881,21 @@ mutate(presidential, duration_days=end-start) %>%
     summarise(mean(duration_days))
 ```
 
+--
+
+```{r,eval=FALSE}
+# same as
+presidential %>% mutate(duration_days=end-start) %>%
+    filter(party == "Democratic") %>%
+    summarise(mean(duration_days))
+```
+
 ---
 
 ## magritrrr
 ### %>% : forward-pipe operator
 
-Example:
+Another example:
 
 ```{r}
 mutate(presidential, duration_days=end-start) %>%
@@ -877,7 +927,7 @@ We will work with the **storms** data set:
   * Calculate the **median pressure for each storm status**.
 
 2. Calculate the **minimum wind speed for each storm (name)**.
-  * What storm has the minimum wind speed?
+  * What storm has the smallest minimum wind speed?
 
 3. Calculate **how many storms happened each year**.
   * *TIP: find what* ***distinct()*** *from* ***{dplyr}*** can do...
@@ -919,7 +969,7 @@ Calculate the **minimum wind speed for each storm (name)**.
 
 --
 
-```{r, eval=F}
+```{r, eval=T}
 # group storms by name and calculate minimum wind speed
 storms %>%
   group_by(name) %>%
@@ -936,10 +986,12 @@ Calculate the **minimum wind speed for each storm (name)**.
 
 ```{r}
 # sort by increasing minimum wind speed
+# introducing top_n: display n number of rows
 storms %>%
   group_by(name) %>%
   summarise(min_wind = min(wind)) %>%
-  arrange(min_wind)
+  arrange(min_wind) %>%
+  top_n(2)
 ```
 
 ---
@@ -981,7 +1033,8 @@ distinct(storms, name, year) %>%
 distinct(storms, name, year) %>%
   group_by(year) %>%
   summarise(storms_per_year=n()) %>%
-  arrange(desc(storms_per_year))
+  arrange(desc(storms_per_year)) %>%
+  top_n(4)
 ```
 
 ---
@@ -989,7 +1042,7 @@ distinct(storms, name, year) %>%
 ## ggplot2
 ### Visualization
 
-As Mireia said in October: **build plots one layer at a time!** (separated with **+**)
+As Mireia said in October's [ggplot2 workshop](https://mireia-bioinfo.github.io/workshop_ggplot2/index.html): **build plots one layer at a time!** (separated with **+**)
   * Data
   * Aesthetics
   * Geometries
@@ -1006,7 +1059,7 @@ ggplot(storms, aes(x=wind, y=pressure)) +
 ## ggplot2
 ### Visualization
 
-Combine with the data wrangling / selection with **%>%**:
+Combine **{ggplot2}** with the data wrangling / selection using **%>%**:
 
 --
 
@@ -1039,6 +1092,9 @@ class: inverse, center, middle
 # THANK YOU !
 
 --
+*slides created with the [xaringan package](https://github.com/yihui/xaringan)*
+
+--
 
 Follow us on Twitter ! @RLadiesBCN
 
@@ -1048,12 +1104,25 @@ knitr::include_graphics("https://media.giphy.com/media/SMKiEh9WDO6ze/giphy.gif")
 
 
 ---
+# Some resources
+
+* [Tidyverse website](https://www.tidyverse.org/)
+
+* [R Studio cheatsheet](https://rstudio.com/resources/cheatsheets/)
+
+* [R for data science](https://r4ds.had.co.nz/)
+
+* [Text mining with R](https://www.tidytextmining.com/)
+
+* [Advanced R](https://adv-r.hadley.nz/)
+
+---
 
 class: inverse
 
 # Let's see what you have learnt today !
 
-```{r, out.width="50%", echo=FALSE, fig.align="center"}
+```{r, out.width="40%", echo=FALSE, fig.align="center"}
 knitr::include_graphics("https://media.giphy.com/media/1BgNCE4bMilwje4SBi/giphy.gif")
 ```
 
